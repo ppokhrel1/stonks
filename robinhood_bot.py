@@ -139,7 +139,7 @@ def run(stock, num_orders):
 	if (len(closePrices) > (rsiPeriod)):
 		#Calculate RSI
 		rsi = ti.rsi(DATA, period=rsiPeriod)
-		short_period, long_period, signal_period = 9, 12, 18
+		short_period, long_period, signal_period = 9, 12, 24
 		macd, macd_signal, macd_histogram = ti.macd(DATA, short_period=short_period,
 			long_period=long_period, 
 			signal_period=signal_period)
@@ -166,7 +166,7 @@ def run(stock, num_orders):
 				rh.orders.cancel_all_option_orders() #cancel all pending orders not fulfilled since last run
 				#pass
 			else:
-				print("Already have option or no max orders reached or ran into error")
+				print(stock + ": Already have option or no max orders reached or ran into error")
 			#rh.place_buy_order(instrument, 1)
 			#rh.orders.order_buy_option_limit("open", "debit", limitPrice, symbol, quantity, expirationDate, strike, optionType='call', timeInForce='gfd')            
 				
