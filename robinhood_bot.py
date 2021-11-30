@@ -46,8 +46,13 @@ from bot_helpers import *
 #A Simple Robinhood Python Trading Bot using RSI (buy <=30 and sell >=70 RSI) and with support and resistance.
 #Youtube : Jacob Amaral
 # Log in to Robinhood app (will prompt for two-factor)
-totp = pyotp.TOTP("T6KNVRHFLSDRIAUH").now()
-login = rh.login('pokhrelpujan.1995@gmail.com','Idkmpyfpos@2021', mfa_code=totp)
+with open('keys.txt', 'r') as f:
+    lines = [a.strip() for a in f.readlines() ] 
+
+    totp = pyotp.TOTP(lines[0]).now()
+    login = rh.login(lines[1],lines[2], mfa_code=totp)
+
+
 
 def order_spread(stock, max_iv = 0.60, vol_min = 200):
 	#ret_val = rh.orders.order_option_spread("debit", price, stock, 1, spread, timeInForce="gfd", )
