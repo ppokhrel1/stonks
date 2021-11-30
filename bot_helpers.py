@@ -53,7 +53,7 @@ def find_options(symbol):
 	#expirationDate = sorted(new_df.expiration_date.unique())[-1]
 
 	#grab the first stock price between the dates given
-	print( new_df.expiration_date.unique())
+	#print( new_df.expiration_date.unique())
 	expirationDate = sorted(new_df.expiration_date.unique())[0]
 	#print(expirationDate)
 	#create a 'bookmark' for stock price
