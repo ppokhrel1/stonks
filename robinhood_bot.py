@@ -24,8 +24,9 @@ spread = [leg1,leg2]
 stocks = ['AUR', ]
 stop_loss_list = ['AUR', ]
 
-trade_counter = [0, 0]
+#trade_counter = [0, 0]
 max_iv = 0.60
+num_orders = 1 #number of options trades at any moment
 
 #from pyrh import Robinhood
 import robin_stocks.robinhood as rh
@@ -173,9 +174,8 @@ def run_stocks(sc, stocks, stop_loss_list, num_orders):
     #stop loss
 
     #20 minutes
-    s.enter(20*60, 1, run_stocks, (sc, stocks, stop_loss_list, num_orders))
+    #s.enter(20*60, 1, run_stocks, (sc, stocks, stop_loss_list, num_orders))
 
-num_orders = 1 #number of options trades at any moment
 
 s.enter(1, 1, run_stocks, (s, stocks, stop_loss_list, num_orders))
 s.run()
