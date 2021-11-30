@@ -51,6 +51,9 @@ def find_options(symbol):
 	#print(strike_list_sort)
 	#grab the furthest stock price from the 30-45 date range
 	expirationDate = sorted(new_df.expiration_date.unique())[-1]
+
+	#grab the first stock price between the dates given
+	expirationDate = sorted(new_df.expiration_date.unique())[0]
 	#print(expirationDate)
 	#create a 'bookmark' for stock price
 	i = strike_list_sort.index(current_price)
