@@ -148,7 +148,9 @@ def run(stock, num_orders):
 				except Exception as e:
 					print(e)
 					print("Could not enter trade due to an error")
-				pass
+				#pass
+			else:
+				print("Already have option or no max orders reached or ran into error")
 			#rh.place_buy_order(instrument, 1)
 			#rh.orders.order_buy_option_limit("open", "debit", limitPrice, symbol, quantity, expirationDate, strike, optionType='call', timeInForce='gfd')            
 				
