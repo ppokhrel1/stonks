@@ -22,8 +22,8 @@ with open('keys.txt', 'r') as f:
 def find_options(symbol):
 	
 	now = dt.datetime.now()
-	start = now + dt.timedelta(15)
-	end = now + dt.timedelta(30 )
+	start = now + dt.timedelta(20)
+	end = now + dt.timedelta(40 )
 	date_generated = [start + dt.timedelta(days=x) for x in range(0, (end-start).days)]
 	date_list = []
 	for date in date_generated:
