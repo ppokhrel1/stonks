@@ -23,7 +23,8 @@ leg2 = {"expirationDate":"2019-12-20",
 
 spread = [leg1,leg2]
 
-stocks = ['NYT', 'CANO', 'MO', 'PENN', 'OPEN', 'WMT', 'SNAP', 'APPS', 'MS' ]
+stocks = ['DE', 'LNG', 'ALL', 'BYD', 'NYT', 'TRGP', 'MMP',
+	'EVFM', 'HAIN', ]
 
 random.shuffle(stocks)
 stop_loss_list = [ ]
@@ -103,7 +104,7 @@ def run(stock, num_orders):
 	global rsiPeriod
 	print("Getting historical quotes")
 	# Get 5 minute bar data for Ford stock
-	historical_quotes = rh.stocks.get_stock_historicals(stock, "10minute", "week")
+	historical_quotes = rh.stocks.get_stock_historicals(stock, "hour", "month")
 	#print(historical_quotes[:5])
 	closePrices = []
 	#format close prices for RSI
