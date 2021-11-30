@@ -128,7 +128,7 @@ def run(stock, num_orders):
         if rsi[len(rsi)-1] <= 30 and float(key['close_price']) <= currentSupport and not enteredTrade:
             print("Buying RSI is below 30!")
             #buy if number of open option orders is less than 2
-            if rh.options.get_open_option_positions() <= num_orders * 2:
+            if len(rh.options.get_open_option_positions()) <= num_orders * 2:
                 #place buy order
                 try:
                     order_spread(stock, max_iv = max_iv) #order a spread to be filled
