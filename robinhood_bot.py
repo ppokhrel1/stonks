@@ -136,7 +136,10 @@ def run(stock, num_orders):
 		if rsi[len(rsi)-1] <= 30 and float(key['close_price']) <= currentSupport and not enteredTrade:
 			print("Buying RSI is below 30!")
 			#buy if number of open option orders is less than 2
-			if len(rh.options.get_open_option_positions()) <= num_orders * 2:
+			all_open_options = rh.options.get_open_option_positions()
+			open_and_pending_options = [b['chain_symbol'] for b in a]
+			#only buy one time
+			if len(open_and_pending_options) <= num_orders * 2 and stock not in open_and_pending_options:
 				#place buy order
 				try:
 					val = order_spread(stock, max_iv = max_iv) #order a spread to be filled
@@ -187,6 +190,7 @@ def run_stocks(sc, stocks, stop_loss_list, num_orders):
 
 #a = order_spread('SPY', max_iv = 1.2)
 #a = rh.options.get_open_option_positions()
+#a = [b['chain_symbol'] for b in a]
 #print(a)
 
 s.enter(1, 1, run_stocks, (s, stocks, stop_loss_list, num_orders))
