@@ -22,7 +22,7 @@ leg2 = {"expirationDate":"2019-12-20",
 spread = [leg1,leg2]
 
 stocks = ['AUR', ]
-stop_loss_list = ['AUR', ]
+stop_loss_list = ['AAP' ]
 
 #trade_counter = [0, 0]
 max_iv = 0.60
