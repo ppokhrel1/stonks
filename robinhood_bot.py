@@ -153,7 +153,7 @@ def run(stock, num_orders):
 					print(e)
 					print("Could not enter trade due to an error")
 
-				time.sleep(10) #sleep for 3 seconds for order to complete
+				time.sleep(5) #sleep for 3 seconds for order to complete
 				rh.orders.cancel_all_option_orders() #cancel all pending orders not fulfilled since last run
 				#pass
 			else:
