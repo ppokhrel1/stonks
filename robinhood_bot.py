@@ -25,7 +25,7 @@ stocks = ['NYT', 'CANO', 'MO', 'PENN', 'OPEN', 'WMT' ]
 stop_loss_list = [ ]
 
 #trade_counter = [0, 0]
-max_iv = 0.60
+max_iv = 0.80
 num_orders = 2 #number of options trades at any moment (one is adready there, AUR)
 
 #from pyrh import Robinhood
@@ -172,7 +172,7 @@ def run_stocks(sc, stocks, stop_loss_list, num_orders):
         
     for stock in stop_loss_list:
         try: #stop loss function
-            stp = stop_win_loss(stock, loss_percent=0.3, win_percent=1.0 )
+            stp = stop_win_loss(stock, loss_percent=0.4, win_percent=1.0 )
             print(stp)
         except Exception as e:
             print(e)
