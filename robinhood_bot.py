@@ -132,7 +132,8 @@ def run(stock, num_orders):
             if len(rh.options.get_open_option_positions()) <= num_orders * 2:
                 #place buy order
                 try:
-                    order_spread(stock, max_iv = max_iv) #order a spread to be filled
+                    val = order_spread(stock, max_iv = max_iv) #order a spread to be filled
+                    print(val)
                     enteredTrade = True#si) - 1]
                 except Exception as e:
                     print(e)
