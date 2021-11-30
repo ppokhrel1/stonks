@@ -145,14 +145,14 @@ def run(stock, num_orders):
 			signal_period=signal_period)
 		#instrument = rh.instruments("F")[0]
 		#If rsi is less than or equal to 30 buy
-		if rsi[len(rsi)-1] <= 35 and float(key['close_price']) <= currentSupport and not enteredTrade:
+		if rsi[len(rsi)-1] <= 40 and float(key['close_price']) <= currentSupport and not enteredTrade:
 			print("Buying RSI is below 30!")
 			#buy if number of open option orders is less than 2
 			all_open_options = rh.options.get_open_option_positions()
 			open_and_pending_options = [b['chain_symbol'] for b in all_open_options]
 			#only buy less than the predetermined number at a time and only one time
 			if len(open_and_pending_options) <= num_orders * 2 and stock not in open_and_pending_options and \
-				(macd[-1] > macd_signal[-1] or (macd[-1] > macd[-3] and  macd[-1] < macd_signal[-1])):
+				(macd[-1] > macd_signal[-1]):# or (macd[-1] > macd[-3] and  macd[-1] < macd_signal[-1])):
 				#place buy order
 				try:
 					val = order_spread(stock, max_iv = max_iv) #order a spread to be filled
@@ -174,7 +174,7 @@ def run(stock, num_orders):
 		
 		#Sell when RSI reaches 70
 		if rsi[len(rsi) - 1] >= 70 and float(key['close_price']) >= currentResistance and currentResistance > 0 and enteredTrade and \
-			(macd[-1] > macd_signal[-1] or (macd[-1] > macd[-3] and  macd[-1] < macd_signal[-1]) ):
+			(macd[-1] > macd_signal[-1]):# or (macd[-1] > macd[-3] and  macd[-1] < macd_signal[-1]) ):
 			print("Selling RSI is above 70!")
 			#rh.place_sell_order(instrument, 1)
 			#order_sell_option_limit("close", "credit", "2.0", "SPY", 5, "2020-04-20", 300, "call", "gtc")
