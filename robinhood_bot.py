@@ -142,7 +142,7 @@ def run(stock, num_orders):
 			#buy if number of open option orders is less than 2
 			all_open_options = rh.options.get_open_option_positions()
 			open_and_pending_options = [b['chain_symbol'] for b in all_open_options]
-			#only buy one time
+			#only buy less than the predetermined number at a time and only one time
 			if len(open_and_pending_options) <= num_orders * 2 and stock not in open_and_pending_options:
 				#place buy order
 				try:
@@ -153,7 +153,7 @@ def run(stock, num_orders):
 					print(e)
 					print("Could not enter trade due to an error")
 
-				time.sleep(4) #sleep for 3 seconds for order to complete
+				time.sleep(10) #sleep for 3 seconds for order to complete
 				rh.orders.cancel_all_option_orders() #cancel all pending orders not fulfilled since last run
 				#pass
 			else:
