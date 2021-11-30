@@ -146,7 +146,7 @@ def run(stock, num_orders):
 			signal_period=signal_period)
 		#instrument = rh.instruments("F")[0]
 		#If rsi is less than or equal to 30 buy
-		if rsi[len(rsi)-1] <= 40 and float(key['close_price']) <= currentSupport and not enteredTrade:
+		if rsi[len(rsi)-1] <= 35 and float(key['close_price']) <= currentSupport and not enteredTrade:
 			print("Buying RSI is below 30!")
 			#buy if number of open option orders is less than 2
 			all_open_options = rh.options.get_open_option_positions()
