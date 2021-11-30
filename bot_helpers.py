@@ -58,10 +58,10 @@ def find_options(symbol):
 	#grab the stock price that is above the 'bookamrk'
 	strike_a = strike_list_sort[i+1] #long call strike price
 
-	print(strike_list_sort)
-	print(i)
-	print(strike_a)
-	print(strike_list_sort[i+2])
+	#print(strike_list_sort)
+	#print(i)
+	#print(strike_a)
+	#print(strike_list_sort[i+2])
 	#strike_a
 	#print(len(strike_list_sort))
 	#print(strike_list_sort[i+3] )

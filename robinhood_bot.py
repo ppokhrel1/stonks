@@ -22,7 +22,7 @@ leg2 = {"expirationDate":"2019-12-20",
 spread = [leg1,leg2]
 
 stocks = ['AUR', ]
-stop_loss_list = ['AAP' ]
+stop_loss_list = [ ]
 
 #trade_counter = [0, 0]
 max_iv = 0.60
@@ -54,16 +54,16 @@ with open('keys.txt', 'r') as f:
 
 
 
-def order_spread(stock, max_iv = 0.60, vol_min = 200):
+def order_spread(stock, max_iv = 0.60, vol_min = 100):
 	#ret_val = rh.orders.order_option_spread("debit", price, stock, 1, spread, timeInForce="gfd", )
 	#r.order_buy_option_limit('open', 'debit', price = price, symbol = ticker, quantity = 1, expirationDate = exp_date, strike = strike , optionType=opt_type, timeInForce='gfd')
-    spread, buy_price, max_iv, volume = find_options(stock)
-    price = buy_price + 1
+    spread, buy_price, iv, volume = find_options(stock)
+    price = round(buy_price, 2) + 0.02
     #print(price)
-    ret_val = "None"
-    if max_iv < max_iv and volume > vol_min:
+    ret_val = "Not entered trade, Cant order spread"
+    if iv <= max_iv and volume > vol_min:
         ret_val = rh.orders.order_option_spread("debit", price, stock, 1, spread, timeInForce="gfd", )
-
+        #print(ret_val)
     return ret_val
 
 def sell_spread(stock):
@@ -183,8 +183,10 @@ def run_stocks(sc, stocks, stop_loss_list, num_orders):
     #20 minutes
     #s.enter(20*60, 1, run_stocks, (sc, stocks, stop_loss_list, num_orders))
 
-
+#a = order_spread('SPY', max_iv = 1.2)
+#print(a)
 s.enter(1, 1, run_stocks, (s, stocks, stop_loss_list, num_orders))
 s.run()
+
 #sc = 0
 #print(run(sc))
