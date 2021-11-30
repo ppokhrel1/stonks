@@ -55,6 +55,7 @@ def order_spread(stock, max_iv = 0.60, vol_min = 200):
     spread, buy_price, max_iv, volume = find_options(stock)
     price = buy_price + 1
     #print(price)
+    ret_val = "None"
     if max_iv < max_iv and volume > vol_min:
         ret_val = rh.orders.order_option_spread("debit", price, stock, 1, spread, timeInForce="gfd", )
 
