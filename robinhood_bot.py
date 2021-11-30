@@ -26,7 +26,7 @@ stop_loss_list = [ ]
 
 #trade_counter = [0, 0]
 max_iv = 0.60
-num_orders = 1 #number of options trades at any moment
+num_orders = 2 #number of options trades at any moment (one is adready there, AUR)
 
 #from pyrh import Robinhood
 import robin_stocks.robinhood as rh
@@ -74,7 +74,7 @@ def sell_spread(stock):
     price = curr_price - 0.02
     print( price)
     ret_val = rh.orders.order_option_spread("credit", round(price, 2), stock, 1, spread, timeInForce="gfd", )
-
+boro
     return ret_val
 
 
