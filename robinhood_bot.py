@@ -24,7 +24,7 @@ leg2 = {"expirationDate":"2019-12-20",
 spread = [leg1,leg2]
 
 stocks = ['DE', 'LNG', 'ALL', 'BYD', 'NYT', 'TRGP', 'MMP',
-	'EVFM', 'HAIN', 'HUN', 'MMP', 'WMT' ]
+	'EVFM', 'HAIN', 'HUN', 'MMP', 'WMT', 'SPY' ]
 
 random.shuffle(stocks)
 stop_loss_list = [ ]
