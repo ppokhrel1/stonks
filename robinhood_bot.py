@@ -145,7 +145,7 @@ def run(stock, num_orders):
 			signal_period=signal_period)
 		#instrument = rh.instruments("F")[0]
 		#If rsi is less than or equal to 30 buy
-		if rsi[len(rsi)-1] <= 30 and float(key['close_price']) <= currentSupport and not enteredTrade:
+		if rsi[len(rsi)-1] <= 35 and float(key['close_price']) <= currentSupport and not enteredTrade:
 			print("Buying RSI is below 30!")
 			#buy if number of open option orders is less than 2
 			all_open_options = rh.options.get_open_option_positions()
@@ -166,7 +166,7 @@ def run(stock, num_orders):
 				rh.orders.cancel_all_option_orders() #cancel all pending orders not fulfilled since last run
 				#pass
 			else:
-				print(stock + ": Already have option or no max orders reached or ran into error")
+				print(stock + ": Already have option or no max orders reached or macd < signal")
 			#rh.place_buy_order(instrument, 1)
 			#rh.orders.order_buy_option_limit("open", "debit", limitPrice, symbol, quantity, expirationDate, strike, optionType='call', timeInForce='gfd')            
 				
