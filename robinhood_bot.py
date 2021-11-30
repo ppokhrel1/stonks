@@ -80,7 +80,7 @@ def sell_spread(stock):
 	return ret_val
 
 
-def stop_win_loss(stock, loss_percent=0.3, win_percent=1.0 ):
+def stop_win_loss(stock, loss_percent=0.3, win_percent=0.8 ):
 	curr_price, true_price, spread = find_current_price(stock)
 
 	#if goes less than stop loss or greater than profit percent
