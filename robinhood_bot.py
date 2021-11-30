@@ -62,6 +62,7 @@ with open('keys.txt', 'r') as f:
 def order_spread(stock, max_iv = 0.60, vol_min = 100):
 	#ret_val = rh.orders.order_option_spread("debit", price, stock, 1, spread, timeInForce="gfd", )
 	#r.order_buy_option_limit('open', 'debit', price = price, symbol = ticker, quantity = 1, expirationDate = exp_date, strike = strike , optionType=opt_type, timeInForce='gfd')
+	#print(stock)
 	spread, buy_price, iv, volume = find_options(stock)
 	price = round(buy_price, 2) + 0.02
 	#print(price)
@@ -69,6 +70,7 @@ def order_spread(stock, max_iv = 0.60, vol_min = 100):
 	print(iv)
 	print(volume)
 	print(spread)
+	#print(stock)
 	if iv <= max_iv and volume > vol_min:
 		ret_val = rh.orders.order_option_spread("debit", price, stock, 1, spread, timeInForce="gfd", )
 		#print(ret_val)
@@ -104,7 +106,8 @@ def run(stock, num_orders):
 	global rsiPeriod
 	print("Getting historical quotes")
 	# Get 5 minute bar data for Ford stock
-	historical_quotes = rh.stocks.get_stock_historicals(stock, "hour", "month")
+	#historical_quotes = rh.stocks.get_stock_historicals(stock, "hour", "month")
+	historical_quotes = rh.stocks.get_stock_historicals(stock, "10minute", "week")
 	#print(historical_quotes[:5])
 	closePrices = []
 	#format close prices for RSI
@@ -151,8 +154,8 @@ def run(stock, num_orders):
 					print(val)
 					enteredTrade = True#si) - 1]
 				except Exception as e:
-					print(e)
-					print("Could not enter trade due to an error")
+					#print(e)
+					#print("Could not enter trade due to an error")
 
 				time.sleep(5) #sleep for 3 seconds for order to complete
 				rh.orders.cancel_all_option_orders() #cancel all pending orders not fulfilled since last run

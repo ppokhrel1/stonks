@@ -23,7 +23,7 @@ def find_options(symbol):
 	
 	now = dt.datetime.now()
 	start = now + dt.timedelta(20)
-	end = now + dt.timedelta(40 )
+	end = now + dt.timedelta(45 )
 	date_generated = [start + dt.timedelta(days=x) for x in range(0, (end-start).days)]
 	date_list = []
 	for date in date_generated:
@@ -50,9 +50,10 @@ def find_options(symbol):
 
 	#print(strike_list_sort)
 	#grab the furthest stock price from the 30-45 date range
-	expirationDate = sorted(new_df.expiration_date.unique())[-1]
+	#expirationDate = sorted(new_df.expiration_date.unique())[-1]
 
 	#grab the first stock price between the dates given
+	print( new_df.expiration_date.unique())
 	expirationDate = sorted(new_df.expiration_date.unique())[0]
 	#print(expirationDate)
 	#create a 'bookmark' for stock price
