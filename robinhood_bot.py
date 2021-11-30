@@ -24,7 +24,7 @@ leg2 = {"expirationDate":"2019-12-20",
 spread = [leg1,leg2]
 
 stocks = ['DE', 'LNG', 'ALL', 'BYD', 'NYT', 'TRGP', 'MMP',
-	'EVFM', 'HAIN', ]
+	'EVFM', 'HAIN', 'HUN', 'MMP' ]
 
 random.shuffle(stocks)
 stop_loss_list = [ ]
@@ -154,9 +154,9 @@ def run(stock, num_orders):
 					print(val)
 					enteredTrade = True#si) - 1]
 				except Exception as e:
-					#print(e)
-					#print("Could not enter trade due to an error")
-
+					print(e)
+					print("Could not enter trade due to an error")
+					print(stock)
 				time.sleep(5) #sleep for 3 seconds for order to complete
 				rh.orders.cancel_all_option_orders() #cancel all pending orders not fulfilled since last run
 				#pass
