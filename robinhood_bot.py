@@ -21,7 +21,7 @@ leg2 = {"expirationDate":"2019-12-20",
 
 spread = [leg1,leg2]
 
-stocks = ['AUR', ]
+stocks = ['NYT', 'CANO', 'MO', 'PENN', 'OPEN', 'WMT' ]
 stop_loss_list = [ ]
 
 #trade_counter = [0, 0]
