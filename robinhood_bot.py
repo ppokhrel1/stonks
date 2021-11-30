@@ -1,4 +1,5 @@
 
+import random
 
 to_close = ['PLTR', 'NPA']
 #symbol, strike, expiry, quantity
@@ -21,7 +22,9 @@ leg2 = {"expirationDate":"2019-12-20",
 
 spread = [leg1,leg2]
 
-stocks = ['NYT', 'CANO', 'MO', 'PENN', 'OPEN', 'WMT' ]
+stocks = ['NYT', 'CANO', 'MO', 'PENN', 'OPEN', 'WMT', 'SNAP', 'APPS', 'MS' ]
+
+random.shuffle(stocks)
 stop_loss_list = [ ]
 
 #trade_counter = [0, 0]
@@ -130,7 +133,7 @@ def run(stock, num_orders):
 		rsi = ti.rsi(DATA, period=rsiPeriod)
 		#instrument = rh.instruments("F")[0]
 		#If rsi is less than or equal to 30 buy
-		if rsi[len(rsi)-1] <= 35 and float(key['close_price']) <= currentSupport and not enteredTrade:
+		if rsi[len(rsi)-1] <= 30 and float(key['close_price']) <= currentSupport and not enteredTrade:
 			print("Buying RSI is below 30!")
 			#buy if number of open option orders is less than 2
 			if len(rh.options.get_open_option_positions()) <= num_orders * 2:
