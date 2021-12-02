@@ -112,6 +112,8 @@ def run(stock, num_orders):
 	historical_quotes = rh.stocks.get_stock_historicals(stock, "10minute", "week")
 	#print(historical_quotes[:5])
 	closePrices = []
+	volumes = []
+
 	#format close prices for RSI
 	currentIndex = 0
 	currentSupport  = 0
@@ -132,6 +134,7 @@ def run(stock, num_orders):
 			   print("Current Resistance is : ")
 			   print(currentResistance)
 			closePrices.append(float(key['close_price']))
+			volumes.append(float(key['volume']) )
 		currentIndex += 1
 	DATA = np.array(closePrices)
 	#data = rh.options.find_options_by_expiration_and_strike("BOX", "2021-04-16", '20.0', optionType='call', info=None) [0] 
@@ -141,14 +144,18 @@ def run(stock, num_orders):
 	if (len(closePrices) > (rsiPeriod)):
 		#Calculate RSI
 		rsi = ti.rsi(DATA, period=rsiPeriod)
+		vwap = ti.vwma(np.array(DATA), np.array(volumes), period=10)
+		sma = ti.sma(np.array(DATA), period=15)
 		short_period, long_period, signal_period = 9, 12, 24
 		macd, macd_signal, macd_histogram = ti.macd(DATA, short_period=short_period,
 			long_period=long_period, 
 			signal_period=signal_period)
 		#instrument = rh.instruments("F")[0]
 		#If rsi is less than or equal to 30 buy
-		if rsi[len(rsi)-1] <= 35 and float(key['close_price']) <= currentSupport and not enteredTrade:
-			print("Buying RSI is below 35!")
+		#if rsi[len(rsi)-1] <= 35 and 
+		#print(stock + " : " + str(vwap[-1] - sma[-1]) )
+		if vwap[-1] > sma[-1] and float(key['close_price']) <= currentSupport and not enteredTrade:
+			#print("Buying RSI is below 35!")
 			#buy if number of open option orders is less than 2
 			all_open_options = rh.options.get_open_option_positions()
 			open_and_pending_options = [b['chain_symbol'] for b in all_open_options]
@@ -175,7 +182,8 @@ def run(stock, num_orders):
 		else: print(key['close_price'] )
 		
 		#Sell when RSI reaches 70
-		if rsi[len(rsi) - 1] >= 70 and float(key['close_price']) >= currentResistance and currentResistance > 0 and enteredTrade and \
+		#if rsi[len(rsi) - 1] >= 70 and 
+		if vwap[-1] < sma[-1] and float(key['close_price']) >= currentResistance and currentResistance > 0 and enteredTrade and \
 			(macd[-1] > macd_signal[-1]):# or (macd[-1] > macd[-3] and  macd[-1] < macd_signal[-1]) ):
 			print("Selling RSI is above 70!")
 			#rh.place_sell_order(instrument, 1)
