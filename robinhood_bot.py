@@ -125,8 +125,8 @@ def run(stock, num_orders):
 	global rsiPeriod
 	#print("Getting historical quotes")
 	# Get 5 minute bar data for Ford stock
-	historical_quotes = rh.stocks.get_stock_historicals(stock, "hour", "month")
-	#historical_quotes = rh.stocks.get_stock_historicals(stock, "10minute", "week")
+	#historical_quotes = rh.stocks.get_stock_historicals(stock, "hour", "month")
+	historical_quotes = rh.stocks.get_stock_historicals(stock, "10minute", "week")
 	#print(historical_quotes[:5])
 	closePrices = []
 	volumes = []
