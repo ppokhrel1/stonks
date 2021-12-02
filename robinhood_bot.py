@@ -24,7 +24,7 @@ leg2 = {"expirationDate":"2019-12-20",
 spread = [leg1,leg2]
 
 
-stocks = [ 'MRNA' ,  'NVDA' , 'MPWR' , 'VRTX' , 'AAPL' ,'AOSL' , 'ADBE' , 'MU' , 'AMAT' , 'KLAC'  'GLBE' , 
+stocks = [ 'MRNA' ,  'NVDA' , 'MPWR' , 'VRTX' , 'AAPL' ,'AOSL' , 'ADBE' , 'MU' , 'AMAT' , 'KLAC',  'GLBE' , 
 	'TXN' ,  'FDS', 'LI' ,'BBW' ,  'AU' , 'PFE' ,'MCHP' ,  'PKI' ,  'TER' ,  'GRTS' ,  'DASH' ,  'ATNF' , 'BRKR' ,  'CAMT' , 
 	'ACLS' ,  'PSTG' ,  'UMC' , 'ATH' , 'RMBS' , 'TUYA',  'AON' ,]
 
@@ -202,7 +202,7 @@ def run_stocks(sc, stocks, stop_loss_list, num_orders):
 			print(stp)
 		except Exception as e:
 			print(e)
-			print("Stop loss did not work, no open option ")
+			print(stock + ": Stop loss did not work, no open option ")
 		#if entered_trade: break
 	#stop loss
 
