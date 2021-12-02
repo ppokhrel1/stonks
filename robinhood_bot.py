@@ -201,6 +201,8 @@ def run(stock, num_orders):
 		if vwap[-1] < sma[-1] and float(key['close_price']) >= currentResistance and currentResistance > 0 and enteredTrade and \
 			(macd[-1] > macd_signal[-1]):# or (macd[-1] > macd[-3] and  macd[-1] < macd_signal[-1]) ):
 			print("Selling RSI is above 70!")
+			#sell fractional order
+			rh.orders.order_sell_fractional_by_price(stock, 20, timeInForce='gtc', extendedHours=False)
 			#rh.place_sell_order(instrument, 1)
 			#order_sell_option_limit("close", "credit", "2.0", "SPY", 5, "2020-04-20", 300, "call", "gtc")
 			enteredTrade = False
