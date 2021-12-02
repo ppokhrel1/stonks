@@ -24,8 +24,9 @@ leg2 = {"expirationDate":"2019-12-20",
 spread = [leg1,leg2]
 
 
-stocks = [ 'ADBE', 'INTU', 'AMZN', 'NVDA', 'NOW', 'TWLO', 'BNTX', 'AMD', 'UPST', 'ENPH', 'ALB', 'DLR', 'GDRX', 'ZTS', 'INCY', 'VRTX',
-'LNG','MP', 'MCHP', 'TTD', 'CDNS', 'NEE', 'CRM', 'INFO','SWCH', 'CUBE', 'UDR', 'PTN', 'PLD', 'CRVS',]
+stocks = [ 'MRNA' ,  'NVDA' , 'MPWR' , 'VRTX' , 'AAPL' ,'AOSL' , 'ADBE' , 'MU' , 'AMAT' , 'KLAC'  'GLBE' , 
+	'TXN' ,  'FDS', 'LI' ,'BBW' ,  'AU' , 'PFE' ,'MCHP' ,  'PKI' ,  'TER' ,  'GRTS' ,  'DASH' ,  'ATNF' , 'BRKR' ,  'CAMT' , 
+	'ACLS' ,  'PSTG' ,  'UMC' , 'ATH' , 'RMBS' , 'TUYA',  'AON' ,]
 
 random.shuffle(stocks)
 stop_loss_list = [ ]
@@ -67,7 +68,7 @@ def order_spread(stock, max_iv = 0.60, vol_min = 100):
 	spread, buy_price, iv, volume = find_options(stock)
 	price = round(buy_price, 2) + 0.02
 	#print(price)
-	ret_val = stock + " Not entered trade, Cant order spread"
+	ret_val = stock + " IV too high or volume too low"
 	print(iv)
 	print(volume)
 	print(spread)
@@ -147,7 +148,7 @@ def run(stock, num_orders):
 		#instrument = rh.instruments("F")[0]
 		#If rsi is less than or equal to 30 buy
 		if rsi[len(rsi)-1] <= 35 and float(key['close_price']) <= currentSupport and not enteredTrade:
-			print("Buying RSI is below 30!")
+			print("Buying RSI is below 35!")
 			#buy if number of open option orders is less than 2
 			all_open_options = rh.options.get_open_option_positions()
 			open_and_pending_options = [b['chain_symbol'] for b in all_open_options]
@@ -167,7 +168,7 @@ def run(stock, num_orders):
 				rh.orders.cancel_all_option_orders() #cancel all pending orders not fulfilled since last run
 				#pass
 			else:
-				print(stock + ": Already have option or no max orders reached or macd < signal")
+				print(stock + ": max orders reached or macd < signal")
 			#rh.place_buy_order(instrument, 1)
 			#rh.orders.order_buy_option_limit("open", "debit", limitPrice, symbol, quantity, expirationDate, strike, optionType='call', timeInForce='gfd')            
 				
