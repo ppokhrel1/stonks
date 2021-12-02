@@ -169,9 +169,8 @@ def run(stock, num_orders):
 			signal_period=signal_period)
 		#instrument = rh.instruments("F")[0]
 		#If rsi is less than or equal to 30 buy
-		#if rsi[len(rsi)-1] <= 35 and 
-		#print(stock + " : " + str(vwap[-1] - sma[-1]) )
-		if vwap[-1] > sma[-1] and vwap[-1]>vwap[-2] and float(key['close_price']) <= currentSupport and not enteredTrade:
+		if rsi[len(rsi)-1] <= 45 and \
+			vwap[-1] > sma[-1] and vwap[-1]>vwap[-2] and float(key['close_price']) <= currentSupport and not enteredTrade:
 			#print("Buying RSI is below 35!")
 			#option position
 			#buy if number of open option orders is less than 2
@@ -218,8 +217,8 @@ def run(stock, num_orders):
 		else: print(key['close_price'] )
 		
 		#Sell when RSI reaches 70
-		#if rsi[len(rsi) - 1] >= 70 and 
-		if vwap[-1] < sma[-1] and float(key['close_price']) >= currentResistance and currentResistance > 0 and enteredTrade and \
+		if rsi[len(rsi) - 1] >= 70 and \
+			vwap[-1] < sma[-1] and float(key['close_price']) >= currentResistance and currentResistance > 0 and enteredTrade and \
 			(macd[-1] > macd_signal[-1] and macd[-1] < macd[-3] ):# or (macd[-1] > macd[-3] and  macd[-1] < macd_signal[-1]) ):
 			print("Selling RSI is above 70!")
 			#sell fractional order
