@@ -183,7 +183,8 @@ def run(stock, num_orders):
 			
 			#only buy less than the predetermined number at a time and only one time
 			if len(open_and_pending_options) <= num_orders * 2 and stock not in open_and_pending_options and \
-				( (macd[-1] < macd_signal[-1] and macd[-1] > macd[-3]) or (macd[-1] > macd_signal[-1] and macd[-2] < macd_signal[-2]) ):# or (macd[-1] > macd[-3] and  macd[-1] < macd_signal[-1])):
+				( (macd[-1] < macd_signal[-1] and abs(macd[-1] - macd_signal[-1]) < abs(macd[-2] - macd_signal[-2]) ) or \
+				(macd[-1] > macd_signal[-1] and abs(macd[-1]-macd_signal[-1]) > abs(macd[-1] - macd_signal[-2]) ) ):# or (macd[-1] > macd[-3] and  macd[-1] < macd_signal[-1])):
 				#place buy order
 				val_buy = []
 				try:
@@ -219,7 +220,7 @@ def run(stock, num_orders):
 		#Sell when RSI reaches 70
 		#if rsi[len(rsi) - 1] >= 70 and \
 		if	vwap[-1] < sma[-1] and float(key['close_price']) >= currentResistance and currentResistance > 0 and enteredTrade and \
-			(macd[-1] > macd_signal[-1] and macd[-1] < macd[-3] ):# or (macd[-1] > macd[-3] and  macd[-1] < macd_signal[-1]) ):
+			(macd[-1] > macd_signal[-1] and macd[-1] < macd[-2] ):# or (macd[-1] > macd[-3] and  macd[-1] < macd_signal[-1]) ):
 			print("Selling RSI is above 70!")
 			#sell fractional order
 			rh.orders.order_sell_fractional_by_price(stock, 10, timeInForce='gtc', extendedHours=False)
