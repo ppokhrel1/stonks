@@ -123,7 +123,7 @@ counter = 0
 def run(stock, num_orders): 
 	global enteredTrade, counter , max_iv
 	global rsiPeriod
-	print("Getting historical quotes")
+	#print("Getting historical quotes")
 	# Get 5 minute bar data for Ford stock
 	historical_quotes = rh.stocks.get_stock_historicals(stock, "hour", "month")
 	#historical_quotes = rh.stocks.get_stock_historicals(stock, "10minute", "week")
@@ -141,15 +141,15 @@ def run(stock, num_orders):
 			if (currentIndex >= (rsiPeriod-1) and datetime.datetime.strptime(key['begins_at'], '%Y-%m-%dT%H:%M:%SZ').minute == 0):
 				currentSupport = 0
 				currentResistance = 0
-				print("Resetting support and resistance")
+				#print("Resetting support and resistance")
 			if(float(key['close_price']) < currentSupport or currentSupport == 0):
 			   currentSupport = float(key['close_price'])
-			   print("Current Support is : ")
-			   print(currentSupport)
+			   #print("Current Support is : ")
+			   #print(currentSupport)
 			if(float(key['close_price']) > currentResistance):
 			   currentResistance = float(key['close_price'])
-			   print("Current Resistance is : ")
-			   print(currentResistance)
+			   #print("Current Resistance is : ")
+			   #print(currentResistance)
 			closePrices.append(float(key['close_price']))
 			volumes.append(float(key['volume']) )
 		currentIndex += 1
@@ -214,7 +214,7 @@ def run(stock, num_orders):
 			#rh.place_buy_order(instrument, 1)
 			#rh.orders.order_buy_option_limit("open", "debit", limitPrice, symbol, quantity, expirationDate, strike, optionType='call', timeInForce='gfd')            
 				
-		else: print(key['close_price'] )
+		else: pass#print(key['close_price'] )
 		
 		#Sell when RSI reaches 70
 		if rsi[len(rsi) - 1] >= 70 and \
@@ -226,7 +226,7 @@ def run(stock, num_orders):
 			#rh.place_sell_order(instrument, 1)
 			#order_sell_option_limit("close", "credit", "2.0", "SPY", 5, "2020-04-20", 300, "call", "gtc")
 			enteredTrade = False
-		else: print(key['close_price'] )
+		else: pass#print(key['close_price'] )
 		#print(rsi)
 	#val = rh.orders.order_buy_option_limit("open", "debit", 1.10, "BOX", 1, "2021-04-16", "20", optionType='call', timeInForce='gfd')
 	#print(val)
