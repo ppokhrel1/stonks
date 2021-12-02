@@ -97,6 +97,21 @@ def stop_win_loss(stock, loss_percent=0.3, win_percent=0.8 ):
 		val = sell_spread(stock)
 		return val
 
+def stock_stop_win_loss(stock, loss_percent=0.02, win_percent=0.03 ):
+	all_open_options = rh.account.get_open_stock_positions()
+
+	#open_and_pending_options = [ rh.stocks.get_instrument_by_url(b['instrument']) for b in all_open_options if b['symbol']==stock ]
+
+	true_price = [ a['average_buy_price'] for a in all_open_options if rh.stocks.get_instrument_by_url(b['instrument'])==stock ][0]
+	true_price = float(true_price)
+	quantity = [ a['quantity'] for a in all_open_options if rh.stocks.get_instrument_by_url(b['instrument'])==stock ][0]
+	quantity = float(quantity)
+	#rh.orders.order_sell_stop_loss(stock, float(val_buy['quantity']), round(rh.get_latest_price(stock)*(1-0.02), 2) )
+	curr_price = rh.get_latest_price(stock)
+	if curr_price < true_price * ( 1 - loss_percent) or curr_price > true_price*(1+win_percent):
+		#val = sell_spread(stock)
+		val = rh.orders.order_sell_fractional_by_quantity(stock, quantity, timeInForce='gtc', extendedHours=False)
+		return val
 
 
 #Setup our variables, we haven't entered a trade yet and our RSI period
@@ -169,7 +184,7 @@ def run(stock, num_orders):
 			
 			#only buy less than the predetermined number at a time and only one time
 			if len(open_and_pending_options) <= num_orders * 2 and stock not in open_and_pending_options and \
-				(macd[-1] > macd_signal[-1]):# or (macd[-1] > macd[-3] and  macd[-1] < macd_signal[-1])):
+				( (macd[-1] < macd_signal[-1] and macd[-1] > macd[-3]) or (macd[-1] > macd_signal[-1] and macd[-2] < macd_signal[-2]) ):# or (macd[-1] > macd[-3] and  macd[-1] < macd_signal[-1])):
 				#place buy order
 				val_buy = []
 				try:
@@ -186,7 +201,7 @@ def run(stock, num_orders):
 					
 					#set stop loss for stock
 					
-					val = rh.orders.order_sell_stop_loss(stock, val_buy['quantity'], round(rh.get_latest_price(stock)*(1-0.02), 2) )
+					#val = rh.orders.order_sell_stop_loss(stock, float(val_buy['quantity']), round(rh.get_latest_price(stock)*(1-0.02), 2) )
 				
 				except Exception as e:
 					print(e)
@@ -205,7 +220,7 @@ def run(stock, num_orders):
 		#Sell when RSI reaches 70
 		#if rsi[len(rsi) - 1] >= 70 and 
 		if vwap[-1] < sma[-1] and float(key['close_price']) >= currentResistance and currentResistance > 0 and enteredTrade and \
-			(macd[-1] > macd_signal[-1]):# or (macd[-1] > macd[-3] and  macd[-1] < macd_signal[-1]) ):
+			(macd[-1] > macd_signal[-1] and macd[-1] < macd[-3] ):# or (macd[-1] > macd[-3] and  macd[-1] < macd_signal[-1]) ):
 			print("Selling RSI is above 70!")
 			#sell fractional order
 			rh.orders.order_sell_fractional_by_price(stock, 10, timeInForce='gtc', extendedHours=False)
@@ -230,7 +245,10 @@ def run_stocks(sc, stocks, stop_loss_list, num_orders):
 		
 	for stock in stop_loss_list:
 		try: #stop loss function
-			stp = stop_win_loss(stock, loss_percent=0.4, win_percent=1.0 )
+			#option one
+			#stp = stop_win_loss(stock, loss_percent=0.4, win_percent=1.0 )
+			#stock one
+			stp = stock_stop_win_loss(stock)
 			print(stp)
 		except Exception as e:
 			print(e)
