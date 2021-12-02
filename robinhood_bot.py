@@ -166,6 +166,7 @@ def run(stock, num_orders):
 			#stock positions
 			all_open_options = rh.account.get_open_stock_positions()
 			open_and_pending_options = [ rh.stocks.get_instrument_by_url(b['instrument'])['symbol'] for b in all_open_options]
+			
 			#only buy less than the predetermined number at a time and only one time
 			if len(open_and_pending_options) <= num_orders * 2 and stock not in open_and_pending_options and \
 				(macd[-1] > macd_signal[-1]):# or (macd[-1] > macd[-3] and  macd[-1] < macd_signal[-1])):
@@ -176,7 +177,7 @@ def run(stock, num_orders):
 					#val = order_spread(stock, max_iv = max_iv) #order a spread to be filled
 
 					#stock
-					val_buy = rh.orders.order_buy_fractional_by_price(stock, 20, timeInForce='gfd', extendedHours=True)
+					val_buy = rh.orders.order_buy_fractional_by_price(stock, 10, timeInForce='gfd', extendedHours=True)
 
 					print(val_buy)
 					#print(val)
@@ -207,7 +208,7 @@ def run(stock, num_orders):
 			(macd[-1] > macd_signal[-1]):# or (macd[-1] > macd[-3] and  macd[-1] < macd_signal[-1]) ):
 			print("Selling RSI is above 70!")
 			#sell fractional order
-			rh.orders.order_sell_fractional_by_price(stock, 20, timeInForce='gtc', extendedHours=False)
+			rh.orders.order_sell_fractional_by_price(stock, 10, timeInForce='gtc', extendedHours=False)
 			#rh.place_sell_order(instrument, 1)
 			#order_sell_option_limit("close", "credit", "2.0", "SPY", 5, "2020-04-20", 300, "call", "gtc")
 			enteredTrade = False
