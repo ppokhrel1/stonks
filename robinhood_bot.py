@@ -158,9 +158,14 @@ def run(stock, num_orders):
 		#print(stock + " : " + str(vwap[-1] - sma[-1]) )
 		if vwap[-1] > sma[-1] and vwap[-1]>vwap[-2] and float(key['close_price']) <= currentSupport and not enteredTrade:
 			#print("Buying RSI is below 35!")
+			#option position
 			#buy if number of open option orders is less than 2
 			all_open_options = rh.options.get_open_option_positions()
 			open_and_pending_options = [b['chain_symbol'] for b in all_open_options]
+			
+			#stock positions
+			all_open_options = rh.account.get_open_stock_positions()
+			open_and_pending_options = [ rh.stocks.get_instrument_by_url(b['instrument'])['symbol'] for b in all_open_options]
 			#only buy less than the predetermined number at a time and only one time
 			if len(open_and_pending_options) <= num_orders * 2 and stock not in open_and_pending_options and \
 				(macd[-1] > macd_signal[-1]):# or (macd[-1] > macd[-3] and  macd[-1] < macd_signal[-1])):
@@ -251,7 +256,8 @@ s.run()
 
 # val = rh.account.get_open_stock_positions()
 # print(val)
-# val = rh.orders.order_sell_stop_loss('AAPL', val_buy['quantity'], round(rh.get_latest_price('AAPL')*(1-0.02), 2) )
+# val = rh.stocks.get_instrument_by_url('https://api.robinhood.com/instruments/450dfc6d-5510-4d40-abfb-f633b7d9be3e/')
+# # val = rh.orders.order_sell_stop_loss('AAPL', val_buy['quantity'], round(rh.get_latest_price('AAPL')*(1-0.02), 2) )
 # print(val)
 # val = rh.stocks.get_latest_price('AAPL')
 
