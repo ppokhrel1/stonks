@@ -97,6 +97,8 @@ def stop_win_loss(stock, loss_percent=0.3, win_percent=0.8 ):
 		val = sell_spread(stock)
 		return val
 
+
+
 #Setup our variables, we haven't entered a trade yet and our RSI period
 enteredTrade = False
 rsiPeriod = 14
@@ -154,7 +156,7 @@ def run(stock, num_orders):
 		#If rsi is less than or equal to 30 buy
 		#if rsi[len(rsi)-1] <= 35 and 
 		#print(stock + " : " + str(vwap[-1] - sma[-1]) )
-		if vwap[-1] > sma[-1] and float(key['close_price']) <= currentSupport and not enteredTrade:
+		if vwap[-1] > sma[-1] and vwap[-1]>vwap[-2] and float(key['close_price']) <= currentSupport and not enteredTrade:
 			#print("Buying RSI is below 35!")
 			#buy if number of open option orders is less than 2
 			all_open_options = rh.options.get_open_option_positions()
@@ -163,16 +165,29 @@ def run(stock, num_orders):
 			if len(open_and_pending_options) <= num_orders * 2 and stock not in open_and_pending_options and \
 				(macd[-1] > macd_signal[-1]):# or (macd[-1] > macd[-3] and  macd[-1] < macd_signal[-1])):
 				#place buy order
+				val_buy = []
 				try:
-					val = order_spread(stock, max_iv = max_iv) #order a spread to be filled
-					print(val)
+					#options trading
+					#val = order_spread(stock, max_iv = max_iv) #order a spread to be filled
+
+					#stock
+					val_buy = rh.orders.order_buy_fractional_by_price(stock, 20, timeInForce='gfd', extendedHours=True)
+
+					print(val_buy)
+					#print(val)
 					enteredTrade = True#si) - 1]
+					time.sleep(5) #sleep for 3 seconds for order to complete
+					
+					#set stop loss for stock
+					
+					val = rh.orders.order_sell_stop_loss(stock, val_buy['quantity'], round(rh.get_latest_price(stock)*(1-0.02), 2) )
+				
 				except Exception as e:
 					print(e)
 					print("Could not enter trade due to an error")
 					print(stock)
-				time.sleep(5) #sleep for 3 seconds for order to complete
-				rh.orders.cancel_all_option_orders() #cancel all pending orders not fulfilled since last run
+				
+				#rh.orders.cancel_all_option_orders() #cancel all pending orders not fulfilled since last run
 				#pass
 			else:
 				print(stock + ": max orders reached or macd < signal")
@@ -199,7 +214,8 @@ def run(stock, num_orders):
 	return enteredTrade
 
 def run_stocks(sc, stocks, stop_loss_list, num_orders):
-	rh.orders.cancel_all_option_orders() #cancel all pending orders not fulfilled since last run
+	#rh.orders.cancel_all_option_orders() #cancel all pending orders not fulfilled since last run
+	rh.orders.cancel_all_stock_orders() #cancel stock orders
 	for stock in stocks:
 		#if rh.options.get_open_option_positions() <= num_orders * 2: #if num_orders is not full
 		entered_trade = run(stock, num_orders)
@@ -224,6 +240,18 @@ def run_stocks(sc, stocks, stop_loss_list, num_orders):
 
 s.enter(1, 1, run_stocks, (s, stocks, stop_loss_list, num_orders))
 s.run()
+
+#val = rh.order_buy_market('AAPL',1)
+
+#val = rh.stocks.get_latest_price('AAPL', includeExtendedHours=False)
+#val = rh.orders.order_sell_fractional_by_price('AAPL', 20, timeInForce='gfd', extendedHours=True)
+
+
+# val = rh.account.get_open_stock_positions()
+# print(val)
+# val = rh.orders.order_sell_stop_loss('AAPL', val_buy['quantity'], round(rh.get_latest_price('AAPL')*(1-0.02), 2) )
+# print(val)
+# val = rh.stocks.get_latest_price('AAPL')
 
 #sc = 0
 #print(run(sc))
