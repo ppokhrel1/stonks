@@ -97,20 +97,24 @@ def stop_win_loss(stock, loss_percent=0.3, win_percent=0.8 ):
 		val = sell_spread(stock)
 		return val
 
-def stock_stop_win_loss(stock, loss_percent=0.02, win_percent=0.06 ):
+def stock_stop_win_loss(stock, loss_percent=0.02, win_percent=0.05 ):
 	all_open_options = rh.account.get_open_stock_positions()
 
 	#open_and_pending_options = [ rh.stocks.get_instrument_by_url(b['instrument']) for b in all_open_options if b['symbol']==stock ]
-
-	true_price = [ a['average_buy_price'] for a in all_open_options if rh.stocks.get_instrument_by_url(b['instrument'])==stock ][0]
+	#print("stop loss for :" + stock)
+	true_price = [ a['average_buy_price'] for a in all_open_options if rh.stocks.get_instrument_by_url(a['instrument'])['symbol']==stock ][0]
+	
+	#print(true_price)
 	true_price = float(true_price)
-	quantity = [ a['quantity'] for a in all_open_options if rh.stocks.get_instrument_by_url(b['instrument'])==stock ][0]
+	quantity = [ a['quantity'] for a in all_open_options if rh.stocks.get_instrument_by_url(a['instrument'])['symbol']==stock ][0]
 	quantity = float(quantity)
 	#rh.orders.order_sell_stop_loss(stock, float(val_buy['quantity']), round(rh.get_latest_price(stock)*(1-0.02), 2) )
-	curr_price = rh.get_latest_price(stock)
+	curr_price = rh.get_latest_price(stock)[0]
+	curr_price = float(curr_price)
+	#print(curr_price)
 	if curr_price < true_price * ( 1 - loss_percent) or curr_price > true_price*(1+win_percent):
 		#val = sell_spread(stock)
-		val = rh.orders.order_sell_fractional_by_quantity(stock, quantity, timeInForce='gtc', extendedHours=False)
+		val = rh.orders.order_sell_fractional_by_quantity(stock, quantity, timeInForce='gfd', extendedHours=False)
 		return val
 
 
