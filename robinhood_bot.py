@@ -115,6 +115,7 @@ def stock_stop_win_loss(stock, loss_percent=0.02, win_percent=0.05 ):
 	if curr_price < true_price * ( 1 - loss_percent) or curr_price > true_price*(1+win_percent):
 		#val = sell_spread(stock)
 		val = rh.orders.order_sell_fractional_by_quantity(stock, quantity, timeInForce='gfd', extendedHours=False)
+		print("sell order for :" + stock + " triggered.")
 		return val
 
 
@@ -256,7 +257,7 @@ def run_stocks(sc, stocks, stop_loss_list, num_orders):
 			#stp = stop_win_loss(stock, loss_percent=0.4, win_percent=1.0 )
 			#stock one
 			stp = stock_stop_win_loss(stock)
-			print(stp)
+			#print(stp)
 		except Exception as e:
 			print(e)
 			print(stock + ": Stop loss did not work, no open option ")
