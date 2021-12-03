@@ -29,7 +29,7 @@ stocks = [ 'MRNA' ,  'NVDA' , 'MPWR' , 'VRTX' , 'AAPL' ,'AOSL' , 'ADBE' , 'MU' ,
 	'ACLS' ,  'PSTG' ,  'UMC' , 'ATH' , 'RMBS' , 'TUYA',  'AON' ,]
 
 random.shuffle(stocks)
-stop_loss_list = [ ]
+stop_loss_list = ['AAPL', 'NVDA', 'TXN', 'UMC' ]
 
 #trade_counter = [0, 0]
 max_iv = 0.60
