@@ -26,7 +26,7 @@ spread = [leg1,leg2]
 
 stocks = [ 'MRNA' ,  'NVDA' , 'MPWR' , 'VRTX' , 'AAPL' ,'AOSL' , 'ADBE' , 'MU' , 'AMAT' , 'KLAC',  'GLBE' , 
 	'TXN' ,  'FDS', 'LI' ,'BBW' ,  'AU' , 'PFE' ,'MCHP' ,  'PKI' ,  'TER' ,  'GRTS' ,  'DASH' ,  'ATNF' , 'BRKR' ,  'CAMT' , 
-	'ACLS' ,  'PSTG' ,  'UMC' , 'ATH' , 'RMBS' , 'TUYA',  'AON' ,]
+	'ACLS' ,  'PSTG' ,  'UMC' , 'ATH' , 'RMBS' , 'TUYA',  'AON' , 'AOSL',  'WD', 'ACHR', 'ASX']
 
 random.shuffle(stocks)
 stop_loss_list = ['AAPL', 'NVDA', 'TXN', 'UMC' ]
@@ -130,6 +130,7 @@ def run(stock, num_orders):
 	global rsiPeriod
 	#print("Getting historical quotes")
 	# Get 5 minute bar data for Ford stock
+	time.sleep(0.5)
 	historical_quotes = rh.stocks.get_stock_historicals(stock, "hour", "month")
 	#historical_quotes = rh.stocks.get_stock_historicals(stock, "10minute", "week")
 	#print(historical_quotes[:5])
