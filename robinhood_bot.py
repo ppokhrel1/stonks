@@ -167,7 +167,7 @@ def run(stock, num_orders):
 		#Calculate RSI
 		rsi = ti.rsi(DATA, period=rsiPeriod)
 		vwap = ti.vwma(np.array(DATA), np.array(volumes), period=10)
-		sma = ti.sma(np.array(DATA), period=15)
+		sma = ti.hma(np.array(DATA), period=13)
 		short_period, long_period, signal_period = 9, 12, 24
 		macd, macd_signal, macd_histogram = ti.macd(DATA, short_period=short_period,
 			long_period=long_period, 
