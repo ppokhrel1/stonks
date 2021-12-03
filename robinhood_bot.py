@@ -97,7 +97,7 @@ def stop_win_loss(stock, loss_percent=0.3, win_percent=0.8 ):
 		val = sell_spread(stock)
 		return val
 
-def stock_stop_win_loss(stock, loss_percent=0.02, win_percent=0.03 ):
+def stock_stop_win_loss(stock, loss_percent=0.02, win_percent=0.05 ):
 	all_open_options = rh.account.get_open_stock_positions()
 
 	#open_and_pending_options = [ rh.stocks.get_instrument_by_url(b['instrument']) for b in all_open_options if b['symbol']==stock ]
@@ -185,7 +185,7 @@ def run(stock, num_orders):
 			#only buy less than the predetermined number at a time and only one time
 			if len(open_and_pending_options) <= num_orders * 2 and stock not in open_and_pending_options and \
 				( (macd[-1] > macd_signal[-1] and macd[-2] <= macd_signal[-2]) or \
-				macd[-1] < macd_signal[-1] and abs(macd[-1] - macd_signal[-1]) < 0.015):
+				macd[-1] < macd_signal[-1] and abs(macd[-1] - macd_signal[-1]) < 0.02):
 				#( (macd[-1] < macd_signal[-1] and abs(macd[-1] - macd_signal[-1]) < abs(macd[-2] - macd_signal[-2]) ) or \
 				#(macd[-1] > macd_signal[-1] and abs(macd[-1]-macd_signal[-1]) > abs(macd[-1] - macd_signal[-2]) ) ):# or (macd[-1] > macd[-3] and  macd[-1] < macd_signal[-1])):
 				#place buy order
