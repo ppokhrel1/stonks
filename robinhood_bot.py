@@ -130,8 +130,8 @@ def run(stock, num_orders):
 	global rsiPeriod
 	#print("Getting historical quotes")
 	# Get 5 minute bar data for Ford stock
-	#historical_quotes = rh.stocks.get_stock_historicals(stock, "hour", "month")
-	historical_quotes = rh.stocks.get_stock_historicals(stock, "10minute", "week")
+	historical_quotes = rh.stocks.get_stock_historicals(stock, "hour", "month")
+	#historical_quotes = rh.stocks.get_stock_historicals(stock, "10minute", "week")
 	#print(historical_quotes[:5])
 	closePrices = []
 	volumes = []
@@ -167,7 +167,7 @@ def run(stock, num_orders):
 		#Calculate RSI
 		rsi = ti.rsi(DATA, period=rsiPeriod)
 		vwap = ti.vwma(np.array(DATA), np.array(volumes), period=10)
-		sma = ti.hma(np.array(DATA), period=13)
+		sma = ti.hma(np.array(DATA), period=13) #hull moving average
 		short_period, long_period, signal_period = 9, 12, 24
 		macd, macd_signal, macd_histogram = ti.macd(DATA, short_period=short_period,
 			long_period=long_period, 
@@ -175,6 +175,8 @@ def run(stock, num_orders):
 		#instrument = rh.instruments("F")[0]
 		#If rsi is less than or equal to 30 buy
 		#if rsi[len(rsi)-1] <= 45 and \
+		#print(stock)
+		#print(vwap[-1] - sma[-1] )
 		if	vwap[-1] > sma[-1] and vwap[-1]>vwap[-2] and float(key['close_price']) <= currentSupport and not enteredTrade:
 			#print("Buying RSI is below 35!")
 			#option position
@@ -204,7 +206,7 @@ def run(stock, num_orders):
 
 					print(val_buy)
 					#print(val)
-					enteredTrade = True#si) - 1]
+					#enteredTrade = True#si) - 1]
 					time.sleep(5) #sleep for 3 seconds for order to complete
 					
 					#set stop loss for stock
