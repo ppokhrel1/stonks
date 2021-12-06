@@ -24,9 +24,14 @@ leg2 = {"expirationDate":"2019-12-20",
 spread = [leg1,leg2]
 
 
-stocks = [ 'MRNA' ,  'NVDA' , 'MPWR' , 'VRTX' , 'AAPL' ,'AOSL' , 'ADBE' , 'MU' , 'AMAT' , 'KLAC',  'GLBE' , 
-	'TXN' ,  'FDS', 'LI' ,'BBW' ,  'AU' , 'PFE' ,'MCHP' ,  'PKI' ,  'TER' ,  'GRTS' ,  'DASH' ,  'ATNF' , 'BRKR' ,  'CAMT' , 
-	'ACLS' ,  'PSTG' ,  'UMC' , 'ATH' , 'RMBS' , 'TUYA',  'AON' , 'AOSL',  'WD', 'ACHR', 'ASX']
+stocks = ['WDC', 'FB', 'GLW', 'MNST', 'ARCO', 'ASX', 'SONO', 'ABB', 'BC', 'VGR', 'XLNX', 'ON', 'CSX', 
+'AOSL', 'SKY', 'NVDA', 'PTSI', 'DVN', 'ACLS', 'AMD', 'CCS', 'SIMO', 'SSD', 'SKY', 'KEYS', 'LEN', 'PG', 
+'BLDR', 'VET', 'MGI', 'Z', 'SPXS', 'EWY', 'SH', 'QID', 'SDS', 'OMC', 'FISV', 'VALE', 'PSQ', 'VCIT', 'DUK', 
+'CIG', 'ACHR', 'IBM', 'BHP', 'IGIB', 'GOGL', 'SPXU', 'SQQQ', 'CHGG', 'DAVA', 'MPWR', 'PAYC', 'PCTY', 'ADBE', 
+'TTD', 'RADA', 'MKSI', 'ALGN', 'NVDA', 'EPAM', 'ANET', 'FND', 'INCY', 'SHOP', 'GRBK', 'VRTX', 'FB', 'VEEV', 'DXCM', 
+'ATH', 'JOF', 'AVLR', 'NETI', 'IBEX', 'IBDO', 'KLR', 'FST', 'VMEO', 'ULBI', 'OLMA', 'DJP', 'TUFN', 'SPLK', 'TRP', 
+'JD', 'ZI', 'EBAY', 'DASH', 'EQH', 'OUT', 'ISRG', 'AIG', 'OWL', 'NOVA', 'ENB', 'RLGY', 'BSIG', 'CELH', 'NCLH', 'CDAY', 'OSTK', 'SGMS', 'HIG'
+]
 
 random.shuffle(stocks)
 stop_loss_list = ['AAPL', 'NVDA', 'TXN', 'UMC' ]
@@ -130,7 +135,7 @@ def run(stock, num_orders):
 	global rsiPeriod
 	#print("Getting historical quotes")
 	# Get 5 minute bar data for Ford stock
-	time.sleep(0.5)
+	time.sleep(0.025)
 	historical_quotes = rh.stocks.get_stock_historicals(stock, "hour", "month")
 	#historical_quotes = rh.stocks.get_stock_historicals(stock, "10minute", "week")
 	#print(historical_quotes[:5])
