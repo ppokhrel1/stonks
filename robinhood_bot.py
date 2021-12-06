@@ -24,13 +24,13 @@ leg2 = {"expirationDate":"2019-12-20",
 spread = [leg1,leg2]
 
 
-stocks = ['WDC', 'FB', 'GLW', 'MNST', 'ARCO', 'ASX', 'SONO', 'ABB', 'BC', 'VGR', 'XLNX', 'ON', 'CSX', 
-'AOSL', 'SKY', 'NVDA', 'PTSI', 'DVN', 'ACLS', 'AMD', 'CCS', 'SIMO', 'SSD', 'SKY', 'KEYS', 'LEN', 'PG', 
-'BLDR', 'VET', 'MGI', 'Z', 'SPXS', 'EWY', 'SH', 'QID', 'SDS', 'OMC', 'FISV', 'VALE', 'PSQ', 'VCIT', 'DUK', 
-'CIG', 'ACHR', 'IBM', 'BHP', 'IGIB', 'GOGL', 'SPXU', 'SQQQ', 'CHGG', 'DAVA', 'MPWR', 'PAYC', 'PCTY', 'ADBE', 
-'TTD', 'RADA', 'MKSI', 'ALGN', 'NVDA', 'EPAM', 'ANET', 'FND', 'INCY', 'SHOP', 'GRBK', 'VRTX', 'FB', 'VEEV', 'DXCM', 
-'ATH', 'JOF', 'AVLR', 'NETI', 'IBEX', 'IBDO', 'KLR', 'FST', 'VMEO', 'ULBI', 'OLMA', 'DJP', 'TUFN', 'SPLK', 'TRP', 
-'JD', 'ZI', 'EBAY', 'DASH', 'EQH', 'OUT', 'ISRG', 'AIG', 'OWL', 'NOVA', 'ENB', 'RLGY', 'BSIG', 'CELH', 'NCLH', 'CDAY', 'OSTK', 'SGMS', 'HIG'
+
+stocks = [
+	'VRTX',    'AOSL',    'CCS',     'SSD',     'SIMO',    'Z',      
+	'KEYS',    'LEN',     'EWY',     'FISV',    'PG',      'ON',     
+	'GRBK',    'PTSI',    'VET',     'VALE',    'ACHR',    'HIG',    
+	'MGI',     'GOGL',    'SH',      'ACLS',    'PSQ',     'VCIT',   
+	'ASX',     'RLGY',    'BHP',     'SDS',     'IGIB',    'CIG',
 ]
 
 random.shuffle(stocks)
