@@ -26,19 +26,19 @@ spread = [leg1,leg2]
 
 
 stocks = [
-	'VRTX',    'AOSL',    'CCS',     'SSD',     'SIMO',    'Z',      
-	'KEYS',    'LEN',     'EWY',     'FISV',    'PG',      'ON',     
-	'GRBK',    'PTSI',    'VET',     'VALE',    'ACHR',    'HIG',    
-	'MGI',     'GOGL',    'SH',      'ACLS',    'PSQ',     'VCIT',   
-	'ASX',     'RLGY',    'BHP',     'SDS',     'IGIB',    'CIG',
+	"GPI","SSD","LGIH","CCS","DGX","ALGN","WD","VRTX","DHI","Z","PM","MS",
+	"PG","ABT","GPN","SIMO","MHO","LEN","BYD","BLD","GRBK","PGR","PHM","BAX",
+	"OMC","CHGG","KNX","SKY","SAVE","UL","FAST","CWK","NX","NRG","WU","PBR","BTI",
+	"OILK","EDR","ACLS","DVN","TPX","WEN","COMM","BLDR","APLE","OXBR","BC","TUYA","ABB",
+	"SABR","BNED","YPF","PSQ","INTC","FOE","VCIT","GOL",
 ]
 
 random.shuffle(stocks)
-stop_loss_list = ['TXN', 'UMC', 'MCHP', 'TUYA', 'MRNA' ]
+stop_loss_list = [ 'RLGY', 'ACHR', 'HIG', 'VALE', 'GOGL' ]
 
 #trade_counter = [0, 0]
 max_iv = 0.60
-num_orders = 2 #number of options trades at any moment (one is adready there, AUR)
+num_orders = 3 #number of options trades at any moment (one is adready there, AUR)
 
 #from pyrh import Robinhood
 import robin_stocks.robinhood as rh
