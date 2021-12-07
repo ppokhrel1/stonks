@@ -38,7 +38,7 @@ stop_loss_list = [ 'RLGY', 'ACHR', 'HIG', 'VALE', 'GOGL' ]
 
 #trade_counter = [0, 0]
 max_iv = 0.60
-num_orders = 3 #number of options trades at any moment (one is adready there, AUR)
+num_orders = 4 #number of options trades at any moment (one is adready there, AUR)
 
 #from pyrh import Robinhood
 import robin_stocks.robinhood as rh
@@ -102,7 +102,7 @@ def stop_win_loss(stock, loss_percent=0.3, win_percent=0.8 ):
 		val = sell_spread(stock)
 		return val
 
-def stock_stop_win_loss(stock, loss_percent=0.02, win_percent=0.04 ):
+def stock_stop_win_loss(stock, loss_percent=0.04, win_percent=0.07 ):
 	all_open_options = rh.account.get_open_stock_positions()
 
 	#open_and_pending_options = [ rh.stocks.get_instrument_by_url(b['instrument']) for b in all_open_options if b['symbol']==stock ]
