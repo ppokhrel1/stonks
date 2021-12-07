@@ -130,8 +130,8 @@ rsiPeriod = 14
 #Initiate our scheduler so we can keep checking every minute for new price changes
 s = sched.scheduler(time.time, time.sleep)
 counter = 0
-def run(stock, num_orders): 
-	global enteredTrade, counter , max_iv
+def run(stock, num_orders, enteredTrade = False): 
+	global counter , max_iv
 	global rsiPeriod
 	#print("Getting historical quotes")
 	# Get 5 minute bar data for Ford stock
@@ -235,7 +235,7 @@ def run(stock, num_orders):
 		
 		#Sell when RSI reaches 70
 		#if rsi[len(rsi) - 1] >= 70 and \
-		if	vwap[-1] < sma[-1] and float(key['close_price']) >= currentResistance and currentResistance > 0 and \
+		if	vwap[-1] < sma[-1] and float(key['close_price']) >= currentResistance and currentResistance > 0 and enteredTrade and \
 			(macd[-1] > macd_signal[-1] and macd[-1] < macd[-2] ):# or (macd[-1] > macd[-3] and  macd[-1] < macd_signal[-1]) ):
 			print("Selling RSI is above 70!")
 			#sell fractional order
@@ -264,6 +264,8 @@ def run_stocks(sc, stocks, stop_loss_list, num_orders):
 			#option one
 			#stp = stop_win_loss(stock, loss_percent=0.4, win_percent=1.0 )
 			#stock one
+			check_stop_criteria = run(stock, num_orders, enteredTrade=True)
+			
 			stp = stock_stop_win_loss(stock)
 			#print(stp)
 		except Exception as e:
