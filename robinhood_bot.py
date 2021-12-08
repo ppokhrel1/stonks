@@ -43,7 +43,7 @@ stop_loss_list = [ 'VRTX', 'RLGY', 'HIG', 'VALE', 'GOGL', 'COMM', 'FOE', 'OMC', 
 
 #trade_counter = [0, 0]
 max_iv = 0.60
-num_orders = 6 #number of options trades at any moment (one is adready there, AUR)
+num_orders = 7 #number of options trades at any moment (one is adready there, AUR)
 
 #from pyrh import Robinhood
 import robin_stocks.robinhood as rh
@@ -249,7 +249,7 @@ def run(stock, num_orders, enteredTrade = False):
 			print("Selling RSI is above 70!")
 			quantity = [ a['quantity'] for a in all_open_options if rh.stocks.get_instrument_by_url(a['instrument'])['symbol']==stock ][0]
 			#sell fractional order
-			rh.orders.order_sell_fractional_by_quantity(stock, 10, timeInForce='gtc', extendedHours=False)
+			rh.orders.order_sell_fractional_by_quantity(stock, quantity, timeInForce='gtc', extendedHours=False)
 			#rh.place_sell_order(instrument, 1)
 			#order_sell_option_limit("close", "credit", "2.0", "SPY", 5, "2020-04-20", 300, "call", "gtc")
 			enteredTrade = False
