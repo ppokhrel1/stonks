@@ -231,6 +231,7 @@ def run(stock, num_orders, enteredTrade = False):
 				
 				#rh.orders.cancel_all_option_orders() #cancel all pending orders not fulfilled since last run
 				#pass
+				
 			else:
 				print(stock + ": max orders reached or macd < signal")
 			#rh.place_buy_order(instrument, 1)
