@@ -243,10 +243,10 @@ def run(stock, num_orders, enteredTrade = False):
 		
 		#Sell when RSI reaches 70
 		#if rsi[len(rsi) - 1] >= 70 and \
-		if	rsi[-1] > 70 and (macd[-1] > macd_signal[-1] and macd[-1] < macd[-2]  ) and enteredTrade: # < macd[-3]
+		if	rsi[-1] > 65 and (macd[-1] > macd_signal[-1] and macd[-1] < macd[-2]  ) and enteredTrade: # < macd[-3]
 			#vwap[-1] <= sma[-1] and float(key['close_price']) >= currentResistance and currentResistance > 0 and enteredTrade and \
 			#(macd[-1] > macd_signal[-1] and macd[-1] < macd[-2] < macd[-3] ):# or (macd[-1] > macd[-3] and  macd[-1] < macd_signal[-1]) ):
-			print("Selling RSI is above 70!")
+			print("Selling RSI is above 65!")
 			quantity = [ a['quantity'] for a in all_open_options if rh.stocks.get_instrument_by_url(a['instrument'])['symbol']==stock ][0]
 			#sell fractional order
 			rh.orders.order_sell_fractional_by_quantity(stock, quantity, timeInForce='gtc', extendedHours=False)
