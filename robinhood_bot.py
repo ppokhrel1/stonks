@@ -231,7 +231,7 @@ def run(stock, num_orders, enteredTrade = False):
 				
 				#rh.orders.cancel_all_option_orders() #cancel all pending orders not fulfilled since last run
 				#pass
-				
+
 			else:
 				print(stock + ": max orders reached or macd < signal")
 			#rh.place_buy_order(instrument, 1)
@@ -241,12 +241,13 @@ def run(stock, num_orders, enteredTrade = False):
 		
 		#Sell when RSI reaches 70
 		#if rsi[len(rsi) - 1] >= 70 and \
-		if	rsi[-1] > 70 and (macd[-1] > macd_signal[-1] and macd[-1] < macd[-2]  ): # < macd[-3]
+		if	rsi[-1] > 70 and (macd[-1] > macd_signal[-1] and macd[-1] < macd[-2]  ) and enteredTrade: # < macd[-3]
 			#vwap[-1] <= sma[-1] and float(key['close_price']) >= currentResistance and currentResistance > 0 and enteredTrade and \
 			#(macd[-1] > macd_signal[-1] and macd[-1] < macd[-2] < macd[-3] ):# or (macd[-1] > macd[-3] and  macd[-1] < macd_signal[-1]) ):
 			print("Selling RSI is above 70!")
+			quantity = [ a['quantity'] for a in all_open_options if rh.stocks.get_instrument_by_url(a['instrument'])['symbol']==stock ][0]
 			#sell fractional order
-			rh.orders.order_sell_fractional_by_price(stock, 10, timeInForce='gtc', extendedHours=False)
+			rh.orders.order_sell_fractional_by_quantity(stock, 10, timeInForce='gtc', extendedHours=False)
 			#rh.place_sell_order(instrument, 1)
 			#order_sell_option_limit("close", "credit", "2.0", "SPY", 5, "2020-04-20", 300, "call", "gtc")
 			enteredTrade = False
