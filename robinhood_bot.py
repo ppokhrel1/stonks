@@ -245,16 +245,25 @@ def run(stock, num_orders, enteredTrade = False):
 		
 		#Sell when RSI reaches 70
 		#if rsi[len(rsi) - 1] >= 70 and \
-		if	rsi[-1] > 65 and (macd[-1] > macd_signal[-1] and macd[-1] < macd[-2]  ) and enteredTrade: # < macd[-3]
+		#macd less than signal and increasing
+		#macd greater than signal and decreasing
+		if	rsi[-1] > 65 and enteredTrade and \
+			( (macd[-1] <= macd_signal[-1] and macd[-1] < macd[-2] < macd[-3] ) or \
+			(macd[-1] >= macd_signal[-1] and macd[-1] < macd[-2] < macd[-3] ) ) : # < macd[-3]
 			#vwap[-1] <= sma[-1] and float(key['close_price']) >= currentResistance and currentResistance > 0 and enteredTrade and \
 			#(macd[-1] > macd_signal[-1] and macd[-1] < macd[-2] < macd[-3] ):# or (macd[-1] > macd[-3] and  macd[-1] < macd_signal[-1]) ):
-			print("Selling RSI is above 65!")
+			print(stock + ": Selling RSI is above 65!")
+			print("sell order for :" + stock + " triggered.")
+			##for stocks
+			all_open_options = rh.account.get_open_stock_positions()
 			quantity = [ a['quantity'] for a in all_open_options if rh.stocks.get_instrument_by_url(a['instrument'])['symbol']==stock ][0]
 			#sell fractional order
-			rh.orders.order_sell_fractional_by_quantity(stock, quantity, timeInForce='gtc', extendedHours=False)
+			val = rh.orders.order_sell_fractional_by_quantity(stock, quantity, timeInForce='gfd', extendedHours=False)
+			#print(val)
 			#rh.place_sell_order(instrument, 1)
 			#order_sell_option_limit("close", "credit", "2.0", "SPY", 5, "2020-04-20", 300, "call", "gtc")
 			enteredTrade = False
+
 		else: pass#print(key['close_price'] )
 		#print(rsi)
 	#val = rh.orders.order_buy_option_limit("open", "debit", 1.10, "BOX", 1, "2021-04-16", "20", optionType='call', timeInForce='gfd')
