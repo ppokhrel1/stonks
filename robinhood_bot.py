@@ -26,11 +26,16 @@ spread = [leg1,leg2]
 
 
 stocks = [
-	"GPI","SSD","LGIH","CCS","DGX","ALGN","WD","VRTX","DHI","Z","PM","MS",
-	"PG","ABT","GPN","SIMO","MHO","LEN","BYD","BLD","GRBK","PGR","PHM","BAX",
-	"OMC","CHGG","KNX","SKY","SAVE","UL","FAST","CWK","NX","NRG","WU","PBR","BTI",
-	"OILK","EDR","ACLS","DVN","TPX","WEN","COMM","BLDR","APLE","OXBR","BC","TUYA","ABB",
-	"SABR","BNED","YPF","PSQ","INTC","FOE","VCIT","GOL",
+	"ALGN","NOW","SHOP","AVGO","WSO","FB","BLD","V","ADBE","TT","DGX","SIMO",
+	"QRVO","SSD","GPN","DHI","LFST","H","TSCO","XPO","AMBA","BLDR","ODFL","TMUS",
+	"UFPI","ABT","LPX","GRBK","PG","WD","KEYS","KLIC","MKSI","SKY","MHO","FND","MDC",
+	"ACLS","TER","CDAY","PCH","BKE","MNST","PGR","PHM","AOSL","LGIH","SPLK","OKE","LEN",
+	"FAST","IONS","GDRX","DVN","KO","BBL","MPC","USFD","NRG","MXL","PSTG","AOS","BSX",
+	"BOOT","INCY","HWM","CROX","MNTV","NVT","OMC","XRAY","CHGG","PCTY","OWL","CYBE","TUYA",
+	"ZEN","FC","TTD","JNK","EDR","SAVE","FOXF","CARG","RDS-B","UL","GIL","VRTX","ALNY","WY",
+	"STAR","PBR","WU","ZIM","PAYC","SABR","WDC","SUMO","HFC","ANET","GOL","RMBS","CPB","TWNK",
+	"SWN","CSII","OXBR","AGNC","NX","VRDN","ARCC","USHY","AQN","BCRX","HYLB","ARCO","SID","PFF",
+	"NLY","RADA","SJNK","EBAY","VYNE","ASX","PPD","VCIT","NWG","CIG","ITUB","AGRX","AGG",
 ]
 
 random.shuffle(stocks)
