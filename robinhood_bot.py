@@ -32,10 +32,10 @@ stocks = [
 	"ACLS","TER","CDAY","PCH","BKE","MNST","PGR","PHM","AOSL","LGIH","SPLK","OKE","LEN",
 	"FAST","IONS","GDRX","DVN","KO","BBL","MPC","USFD","NRG","MXL","PSTG","AOS","BSX",
 	"BOOT","INCY","HWM","CROX","MNTV","NVT","OMC","XRAY","CHGG","PCTY","OWL","CYBE","TUYA",
-	"ZEN","FC","TTD","JNK","EDR","SAVE","FOXF","CARG","RDS-B","UL","GIL","VRTX","ALNY","WY",
+	"ZEN","FC","TTD","JNK","EDR","SAVE","FOXF","CARG","UL","GIL","VRTX","ALNY","WY",
 	"STAR","PBR","WU","ZIM","PAYC","SABR","WDC","SUMO","HFC","ANET","GOL","RMBS","CPB","TWNK",
 	"SWN","CSII","OXBR","AGNC","NX","VRDN","ARCC","USHY","AQN","BCRX","HYLB","ARCO","SID","PFF",
-	"NLY","RADA","SJNK","EBAY","VYNE","ASX","PPD","VCIT","NWG","CIG","ITUB","AGRX","AGG",
+	"NLY","RADA","SJNK","EBAY","VYNE","ASX","VCIT","NWG","CIG","ITUB","AGRX","AGG",
 ]
 
 random.shuffle(stocks)
@@ -107,7 +107,7 @@ def stop_win_loss(stock, loss_percent=0.3, win_percent=0.8 ):
 		val = sell_spread(stock)
 		return val
 
-def stock_stop_win_loss(stock, loss_percent=0.04, win_percent=0.07 ):
+def stock_stop_win_loss(stock, loss_percent=0.04, win_percent=0.06 ):
 	all_open_options = rh.account.get_open_stock_positions()
 
 	#open_and_pending_options = [ rh.stocks.get_instrument_by_url(b['instrument']) for b in all_open_options if b['symbol']==stock ]
