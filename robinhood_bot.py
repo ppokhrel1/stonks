@@ -201,9 +201,11 @@ def run(stock, num_orders, enteredTrade = False):
 			
 			#print(len(open_and_pending_options))
 			#only buy less than the predetermined number at a time and only one time
+			#rsi less than 50 (not oversold)
 			# macd less than signal and difference less than 0.02
 			# or macd > signal and macd - signal < 0.02 and macd growing
 			if len(open_and_pending_options) <= num_orders * 2 and stock not in open_and_pending_options and \
+				rsi[-1] < 50 and rsi[-1] > rsi[-2] and \
 				( (macd[-1] > macd_signal[-1] and abs(macd[-1] - macd_signal[-1]) <= 0.02  and macd[-1] > macd[-2]  ) or \
 				macd[-1] < macd_signal[-1] and abs(macd[-1] - macd_signal[-1]) <= 0.02):
 				#( (macd[-1] < macd_signal[-1] and abs(macd[-1] - macd_signal[-1]) < abs(macd[-2] - macd_signal[-2]) ) or \
