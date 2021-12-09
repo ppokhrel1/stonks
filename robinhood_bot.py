@@ -26,24 +26,21 @@ spread = [leg1,leg2]
 
 
 stocks = [
-	"ALGN","NOW","SHOP","AVGO","WSO","FB","BLD","V","ADBE","TT","DGX","SIMO",
-	"QRVO","SSD","GPN","DHI","LFST","H","TSCO","XPO","AMBA","BLDR","ODFL","TMUS",
-	"UFPI","ABT","LPX","GRBK","PG","WD","KEYS","KLIC","MKSI","SKY","MHO","FND","MDC",
-	"ACLS","TER","CDAY","PCH","BKE","MNST","PGR","PHM","AOSL","LGIH","SPLK","OKE","LEN",
-	"FAST","IONS","GDRX","DVN","KO","BBL","MPC","USFD","NRG","MXL","PSTG","AOS","BSX",
-	"BOOT","INCY","HWM","CROX","MNTV","NVT","OMC","XRAY","CHGG","PCTY","OWL","CYBE","TUYA",
-	"ZEN","FC","TTD","JNK","EDR","SAVE","FOXF","CARG","UL","GIL","VRTX","ALNY","WY",
-	"STAR","PBR","WU","ZIM","PAYC","SABR","WDC","SUMO","HFC","ANET","GOL","RMBS","CPB","TWNK",
-	"SWN","CSII","OXBR","AGNC","NX","VRDN","ARCC","USHY","AQN","BCRX","HYLB","ARCO","SID","PFF",
-	"NLY","RADA","SJNK","EBAY","VYNE","ASX","VCIT","NWG","CIG","ITUB","AGRX","AGG",
+	"SHOP","LRCX","ROKU","OKTA","NVDA","DAVA","UNH","FB","TER","PYPL","V",
+	"ADBE","TT","KLIC","LFST","MXL","TTD","BLD","BOOT","CROX","AMD","SKY",
+	"LOVE","ANET","SNAP","CARG","ACLS","ZIM","DVN","BLDR","DGX","LPX","MNST",
+	"DHI","RTX","PLAY","FIGS","INCY","ALLE","PG","CYBE","COMP","PHM","RMBS","PK",
+	"MRUS","USFD","ERJ","AOSL","CHD","FOXF","LEN","SAVE","PBR","NKTR","CHGG","FC",
+	"RLJ","SRNE","NOVA","CTRE","NSSC","CVGI","PTSI","IBN","PSFE","WY","RLX",
 ]
 
 random.shuffle(stocks)
-stop_loss_list = [ 'VRTX', 'RLGY', 'HIG', 'VALE', 'GOGL', 'COMM', 'FOE', 'OMC', 'APLE' ]
+stop_loss_list = [ 'VRTX', 'DGX', 'HIG', 'FOE', 'OMC', 'SJNK', 'AOS', 'HYLB', 'USHY',
+	'AQN', 'USFD', 'LFST', 'NX', 'ITUB']
 
 #trade_counter = [0, 0]
 max_iv = 0.60
-num_orders = 7 #number of options trades at any moment (one is adready there, AUR)
+num_orders = 4 #number of options trades at any moment (one is adready there, AUR)
 
 #from pyrh import Robinhood
 import robin_stocks.robinhood as rh
