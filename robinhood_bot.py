@@ -26,17 +26,14 @@ spread = [leg1,leg2]
 
 
 stocks = [
-	"SHOP","LRCX","ROKU","OKTA","NVDA","DAVA","UNH","FB","TER","PYPL","V",
-	"ADBE","TT","KLIC","LFST","MXL","TTD","BLD","BOOT","CROX","AMD","SKY",
-	"LOVE","ANET","SNAP","CARG","ACLS","ZIM","DVN","BLDR","DGX","LPX","MNST",
-	"DHI","RTX","PLAY","FIGS","INCY","ALLE","PG","CYBE","COMP","PHM","RMBS","PK",
-	"MRUS","USFD","ERJ","AOSL","CHD","FOXF","LEN","SAVE","PBR","NKTR","CHGG","FC",
-	"RLJ","SRNE","NOVA","CTRE","NSSC","CVGI","PTSI","IBN","PSFE","WY","RLX",
+	"AVGO","LOVE","FTNT","ADBE","ACN","NVDA","UNH","EW","MSFT","AAPL","AOSL",
+	"MP","VRTX","FB","ANET","TTD","KLIC","PG","LPX","PH","LEN","CYBE","LI","BOOT",
+	"CHRW","ARW","NSSC","PTSI","ACLS","ABT","WY","MARA","CWK","PDBC","BKE","WD","INFI",
+	"DASH","RSLS","DMTK","ATH","PPD"
 ]
 
 random.shuffle(stocks)
-stop_loss_list = [ 'VRTX', 'DGX', 'HIG', 'FOE', 'OMC', 'SJNK', 'AOS', 'HYLB', 'USHY',
-	'AQN', 'USFD', 'LFST', 'NX', 'ITUB']
+stop_loss_list = [ ]
 
 #trade_counter = [0, 0]
 max_iv = 0.60
