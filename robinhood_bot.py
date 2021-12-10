@@ -29,7 +29,7 @@ stocks = [
 	"AVGO","LOVE","FTNT","ADBE","ACN","NVDA","UNH","EW","MSFT","AAPL","AOSL",
 	"MP","VRTX","FB","ANET","TTD","KLIC","PG","LPX","PH","LEN","CYBE","LI","BOOT",
 	"CHRW","ARW","NSSC","PTSI","ACLS","ABT","WY","MARA","CWK","PDBC","BKE","WD","INFI",
-	"DASH","RSLS","DMTK","ATH","PPD"
+	"DASH","RSLS","DMTK","ATH",
 ]
 
 random.shuffle(stocks)
