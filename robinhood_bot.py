@@ -247,7 +247,7 @@ def run(stock, num_orders, enteredTrade = False):
 			(macd[-1] >= macd_signal[-1] and macd[-1] < macd[-2] < macd[-3] ) ) : # < macd[-3]
 			#vwap[-1] <= sma[-1] and float(key['close_price']) >= currentResistance and currentResistance > 0 and enteredTrade and \
 			#(macd[-1] > macd_signal[-1] and macd[-1] < macd[-2] < macd[-3] ):# or (macd[-1] > macd[-3] and  macd[-1] < macd_signal[-1]) ):
-			print(stock + ": Selling RSI is above 65!")
+			#print(stock + ": Selling RSI is above 65!")
 			print("sell order for :" + stock + " triggered.")
 			##for stocks
 			all_open_options = rh.account.get_open_stock_positions()
