@@ -28,7 +28,10 @@ spread = [leg1,leg2]
 stocks = [
 	"CURV","RETA","LOVE","MARA","SRNE","INFI","RIOT","DMTK","OSCR",
 	"ERJ","SHOP","NVDA","AVGO","FST","ACLS","EW","FTNT","TTD","OCFT",
-	"CYBE","FB","ANET","COST","ADBE","SKY","CHRW","CTRE","BOOT","ULST","BLD"
+	"CYBE","FB","ANET","COST","ADBE","SKY","CHRW","CTRE","BOOT","ULST","BLD",
+	
+	#from tickeron engine december 12 weekly play
+	 'ERF', 'HFFG', 'YELL', 'RELL', 'SUZ', 'GGB',
 ]
 
 random.shuffle(stocks)
@@ -69,7 +72,7 @@ def order_spread(stock, max_iv = 0.60, vol_min = 100):
 	#r.order_buy_option_limit('open', 'debit', price = price, symbol = ticker, quantity = 1, expirationDate = exp_date, strike = strike , optionType=opt_type, timeInForce='gfd')
 	#print(stock)
 	spread, buy_price, iv, volume = find_options(stock)
-	price = round(buy_price, 2) + 0.02
+	price = round(buy_price, 2) + 0.01
 	#print(price)
 	ret_val = stock + " IV too high or volume too low"
 	print(iv)
@@ -86,7 +89,7 @@ def sell_spread(stock):
 	#return ret_val
 	curr_price, true_price, spread = find_current_price(stock)
 
-	price = curr_price - 0.02
+	price = curr_price - 0.01
 	print( price)
 	ret_val = rh.orders.order_option_spread("credit", round(price, 2), stock, 1, spread, timeInForce="gfd", )
 	return ret_val
