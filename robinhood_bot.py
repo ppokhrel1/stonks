@@ -36,7 +36,7 @@ stop_loss_list = [ ]
 
 #trade_counter = [0, 0]
 max_iv = 0.60
-num_orders = 4 #number of options trades at any moment (one is adready there, AUR)
+num_orders = 3 #number of options trades at any moment (one is adready there, AUR)
 
 #from pyrh import Robinhood
 import robin_stocks.robinhood as rh
@@ -211,7 +211,7 @@ def run(stock, num_orders, enteredTrade = False):
 					#val = order_spread(stock, max_iv = max_iv) #order a spread to be filled
 
 					#stock
-					val_buy = rh.orders.order_buy_fractional_by_price(stock, 10, timeInForce='gfd', extendedHours=True)
+					val_buy = rh.orders.order_buy_fractional_by_price(stock, 20, timeInForce='gfd', extendedHours=True)
 
 					print(val_buy)
 					#print(val)
@@ -241,7 +241,8 @@ def run(stock, num_orders, enteredTrade = False):
 		#if rsi[len(rsi) - 1] >= 70 and \
 		#macd less than signal and increasing
 		#macd greater than signal and decreasing
-		if	rsi[-1] > 65 and enteredTrade and \
+		#rsi[-1] > 65 and
+		if	enteredTrade and \
 			( (macd[-1] <= macd_signal[-1] and macd[-1] < macd[-2] < macd[-3] ) or \
 			(macd[-1] >= macd_signal[-1] and macd[-1] < macd[-2] < macd[-3] ) ) : # < macd[-3]
 			#vwap[-1] <= sma[-1] and float(key['close_price']) >= currentResistance and currentResistance > 0 and enteredTrade and \
