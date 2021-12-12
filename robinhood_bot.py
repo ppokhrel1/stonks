@@ -26,10 +26,9 @@ spread = [leg1,leg2]
 
 
 stocks = [
-	"CURV","AVGO","FTNT","LOVE","EL","ADBE","ACN","UNH","COST","VRTX",
-	"ANET","EW","AOSL","TTD","BOOT","FB","MARA","TT","LPX","DHI","CHRW",
-	"CYBE","PG","NSSC","ACLS","DFS","ABT","CSCO","LEN","WD","WY","SRNE",
-	"COMP","NVDA","CWK","FAST","PTSI","OCFT","RSLS","ERJ","INFI","TRQ","NEX","BLMN","NMRK","PPD",
+	"CURV","RETA","LOVE","MARA","SRNE","INFI","RIOT","DMTK","OSCR",
+	"ERJ","SHOP","NVDA","AVGO","FST","ACLS","EW","FTNT","TTD","OCFT",
+	"CYBE","FB","ANET","COST","ADBE","SKY","BTC-USD","CHRW","CTRE","BOOT","ULST","BLD"
 ]
 
 random.shuffle(stocks)
