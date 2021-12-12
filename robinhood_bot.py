@@ -28,7 +28,7 @@ spread = [leg1,leg2]
 stocks = [
 	"CURV","RETA","LOVE","MARA","SRNE","INFI","RIOT","DMTK","OSCR",
 	"ERJ","SHOP","NVDA","AVGO","FST","ACLS","EW","FTNT","TTD","OCFT",
-	"CYBE","FB","ANET","COST","ADBE","SKY","BTC-USD","CHRW","CTRE","BOOT","ULST","BLD"
+	"CYBE","FB","ANET","COST","ADBE","SKY","CHRW","CTRE","BOOT","ULST","BLD"
 ]
 
 random.shuffle(stocks)
