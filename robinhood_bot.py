@@ -26,9 +26,10 @@ spread = [leg1,leg2]
 
 
 stocks = [
-	"CURV","RETA","LOVE","MARA","SRNE","INFI","RIOT","DMTK","OSCR",
-	"ERJ","SHOP","NVDA","AVGO","FST","ACLS","EW","FTNT","TTD","OCFT",
-	"CYBE","FB","ANET","COST","ADBE","SKY","CHRW","CTRE","BOOT","ULST","BLD",
+	"CURV","AVGO","ADBE","FTNT","LOVE","UNH","COST","ACN","EL","EW","CHRW",
+	"ANET","AOSL","BOOT","LPX","PG","NSSC","VRTX","CSCO","TT","DHI","CWK","LEN",
+	"FAST","ABT","FB","WY","NMRK","SRNE","CYBE","ERJ","RSLS","DFS","NEX","OCFT","TRQ",
+	"PPD","INFI","COMP","NXP"
 	
 	#from tickeron engine december 12 weekly play
 	 'ERF', 'HFFG', 'YELL', 'RELL', 'SUZ', 'GGB',
@@ -137,7 +138,9 @@ def run(stock, num_orders, enteredTrade = False):
 	#print("Getting historical quotes")
 	# Get 5 minute bar data for Ford stock
 	time.sleep(0.025)
-	historical_quotes = rh.stocks.get_stock_historicals(stock, "hour", "month")
+
+	historical_quotes = rh.stocks.get_stock_historicals(stock, "day", "year")
+	#historical_quotes = rh.stocks.get_stock_historicals(stock, "hour", "month")
 	#historical_quotes = rh.stocks.get_stock_historicals(stock, "10minute", "week")
 	#print(historical_quotes[:5])
 	closePrices = []
