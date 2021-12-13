@@ -29,10 +29,10 @@ stocks = [
 	"CURV","AVGO","ADBE","FTNT","LOVE","UNH","COST","ACN","EL","EW","CHRW",
 	"ANET","AOSL","BOOT","LPX","PG","NSSC","VRTX","CSCO","TT","DHI","CWK","LEN",
 	"FAST","ABT","FB","WY","NMRK","SRNE","CYBE","ERJ","RSLS","DFS","NEX","OCFT","TRQ",
-	"PPD","INFI","COMP","NXP"
+	"INFI","COMP",
 	
 	#from tickeron engine december 12 weekly play
-	 'ERF', 'HFFG', 'YELL', 'RELL', 'SUZ', 'GGB',
+	'ERF', 'HFFG', 'YELL', 'RELL', 'SUZ', 'GGB',
 ]
 
 random.shuffle(stocks)
@@ -139,8 +139,8 @@ def run(stock, num_orders, enteredTrade = False):
 	# Get 5 minute bar data for Ford stock
 	time.sleep(0.025)
 
-	historical_quotes = rh.stocks.get_stock_historicals(stock, "day", "year")
-	#historical_quotes = rh.stocks.get_stock_historicals(stock, "hour", "month")
+	#historical_quotes = rh.stocks.get_stock_historicals(stock, "day", "year")
+	historical_quotes = rh.stocks.get_stock_historicals(stock, "hour", "month")
 	#historical_quotes = rh.stocks.get_stock_historicals(stock, "10minute", "week")
 	#print(historical_quotes[:5])
 	closePrices = []
@@ -203,11 +203,11 @@ def run(stock, num_orders, enteredTrade = False):
 			#rsi less than 50 (not oversold)
 			# macd less than signal and difference less than 0.02
 			# or macd > signal and macd - signal < 0.02 and macd growing
-			# and abs(macd[-1] - macd_signal[-1]) <= 0.03 and abs(macd[-1] - macd_signal[-1]) <= 0.03)
+			# 
 			if len(open_and_pending_options) <= num_orders * 2 and stock not in open_and_pending_options and \
 				rsi[-1] < 50 and \
-				( (macd[-1] > macd_signal[-1]   and macd[-1] > macd[-2] > macd[-3]  ) or \
-				(macd[-1] < macd_signal[-1]  and macd[-1] > macd[-2]>macd[-3]) ):
+				( (macd[-1] > macd_signal[-1]  and abs(macd[-1] - macd_signal[-1]) <= 0.03 and macd[-1] > macd[-2] > macd[-3]  ) or \
+				(macd[-1] < macd_signal[-1]   and abs(macd[-1] - macd_signal[-1]) <= 0.03) and macd[-1] > macd[-2]>macd[-3]) ):
 				#( (macd[-1] < macd_signal[-1] and abs(macd[-1] - macd_signal[-1]) < abs(macd[-2] - macd_signal[-2]) ) or \
 				#(macd[-1] > macd_signal[-1] and abs(macd[-1]-macd_signal[-1]) > abs(macd[-1] - macd_signal[-2]) ) ):# or (macd[-1] > macd[-3] and  macd[-1] < macd_signal[-1])):
 				#place buy order
