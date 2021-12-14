@@ -26,11 +26,9 @@ spread = [leg1,leg2]
 
 
 stocks = [
-	'TACO', 'EPAM', 'AOSL', 'ACLS', 'NSSC', 'PTSI', 'PG', 'PFE', 'PGR', 
-	'JNJ', 'CHD', 'SFM', 'DGX', 'VRTX', 'UNH', 'VYNE', 'GRTX', 'COMM', 
-	'LBTYK', 'CP', 'GOED', 'TTE', 'INFI', 'INCY', 'ADBE', 'ANET', 'SHOP', 
-	'FB', 'TTD', 'ATH', 'VRTX', 'NVDA', 'ACR', 'RSXJ', 'NSTB', 'GWGH', 'NOVA', 
-	'UAA', 'CG', 'TDC', 'ESI', 'WMB', 'GNTX', 'RIOT', 'U', 'SPOT', 'PLUG', 'MARA'
+	"ABT","JNJ","NOV","DGX","PGR","WMB","EBAY","PLUG","RETA","AOSL","INFI","ALLY",
+	"AGX","ACLS","MGA","VRTX","PM","VICR","LBTYK","KO","CTXS","SNDR","CP","AAPL",
+	"GGB","INCY","ACR","TTE","AVGO","PG","NAVI","RSXJ","CTRE","ESI","FB",
 	
 	#from tickeron engine december 12 weekly play
 	#'ERF', 'HFFG', 'YELL', 'RELL', 'SUZ', 'GGB',
@@ -140,9 +138,9 @@ def run(stock, num_orders, enteredTrade = False):
 	# Get 5 minute bar data for Ford stock
 	time.sleep(0.025)
 
-	historical_quotes = rh.stocks.get_stock_historicals(stock, "day", "year")
+	#historical_quotes = rh.stocks.get_stock_historicals(stock, "day", "year")
 	#historical_quotes = rh.stocks.get_stock_historicals(stock, "hour", "month")
-	#historical_quotes = rh.stocks.get_stock_historicals(stock, "10minute", "week")
+	historical_quotes = rh.stocks.get_stock_historicals(stock, "10minute", "week")
 	#print(historical_quotes[:5])
 	closePrices = []
 	volumes = []
@@ -249,22 +247,28 @@ def run(stock, num_orders, enteredTrade = False):
 		#macd less than signal and increasing
 		#macd greater than signal and decreasing
 		#rsi[-1] > 65 and
-		if	enteredTrade and \
-			( (macd[-1] <= macd_signal[-1] and macd[-1] < macd[-2] < macd[-3] ) or \
-			(macd[-1] >= macd_signal[-1] and macd[-1] < macd[-2] < macd[-3] ) ) : # < macd[-3]
+		if	enteredTrade:
+			historical_quotes = rh.stocks.get_stock_historicals(stock, "day", "year")
+			short_period, long_period, signal_period = 9, 12, 24
+			macd, macd_signal, macd_histogram = ti.macd(DATA, short_period=short_period,
+				long_period=long_period, 
+				signal_period=signal_period)
+			# < macd[-3]  < macd[-3]
+			if ( (macd[-1] <= macd_signal[-1] and macd[-1] < macd[-2]  ) or \
+			(macd[-1] >= macd_signal[-1] and macd[-1] < macd[-2]  ) ) : # < macd[-3]
 			#vwap[-1] <= sma[-1] and float(key['close_price']) >= currentResistance and currentResistance > 0 and enteredTrade and \
 			#(macd[-1] > macd_signal[-1] and macd[-1] < macd[-2] < macd[-3] ):# or (macd[-1] > macd[-3] and  macd[-1] < macd_signal[-1]) ):
 			#print(stock + ": Selling RSI is above 65!")
-			print("sell order for :" + stock + " triggered.")
-			##for stocks
-			all_open_options = rh.account.get_open_stock_positions()
-			quantity = [ a['quantity'] for a in all_open_options if rh.stocks.get_instrument_by_url(a['instrument'])['symbol']==stock ][0]
-			#sell fractional order
-			val = rh.orders.order_sell_fractional_by_quantity(stock, quantity, timeInForce='gfd', extendedHours=False)
-			#print(val)
-			#rh.place_sell_order(instrument, 1)
-			#order_sell_option_limit("close", "credit", "2.0", "SPY", 5, "2020-04-20", 300, "call", "gtc")
-			enteredTrade = False
+				print("sell order for :" + stock + " triggered.")
+				##for stocks
+				all_open_options = rh.account.get_open_stock_positions()
+				quantity = [ a['quantity'] for a in all_open_options if rh.stocks.get_instrument_by_url(a['instrument'])['symbol']==stock ][0]
+				#sell fractional order
+				val = rh.orders.order_sell_fractional_by_quantity(stock, quantity, timeInForce='gfd', extendedHours=False)
+				#print(val)
+				#rh.place_sell_order(instrument, 1)
+				#order_sell_option_limit("close", "credit", "2.0", "SPY", 5, "2020-04-20", 300, "call", "gtc")
+				enteredTrade = False
 
 		else: pass#print(key['close_price'] )
 		#print(rsi)
