@@ -26,13 +26,14 @@ spread = [leg1,leg2]
 
 
 stocks = [
-	"AVGO","ADBE","FTNT","LOVE","UNH","COST","ACN","EL","EW","CHRW",
-	"ANET","AOSL","BOOT","LPX","PG","NSSC","VRTX","CSCO","TT","DHI","CWK","LEN",
-	"FAST","ABT","FB","WY","SRNE","CYBE","ERJ","RSLS","DFS","NEX","OCFT","TRQ",
-	"INFI","COMP",
+	'TACO', 'EPAM', 'AOSL', 'ACLS', 'NSSC', 'PTSI', 'PG', 'PFE', 'PGR', 
+	'JNJ', 'CHD', 'SFM', 'DGX', 'VRTX', 'UNH', 'VYNE', 'GRTX', 'COMM', 
+	'LBTYK', 'CP', 'GOED', 'TTE', 'INFI', 'INCY', 'ADBE', 'ANET', 'SHOP', 
+	'FB', 'TTD', 'ATH', 'VRTX', 'NVDA', 'ACR', 'RSXJ', 'NSTB', 'GWGH', 'NOVA', 
+	'UAA', 'CG', 'TDC', 'ESI', 'WMB', 'GNTX', 'RIOT', 'U', 'SPOT', 'PLUG', 'MARA'
 	
 	#from tickeron engine december 12 weekly play
-	'ERF', 'HFFG', 'YELL', 'RELL', 'SUZ', 'GGB',
+	#'ERF', 'HFFG', 'YELL', 'RELL', 'SUZ', 'GGB',
 ]
 
 random.shuffle(stocks)
@@ -139,8 +140,8 @@ def run(stock, num_orders, enteredTrade = False):
 	# Get 5 minute bar data for Ford stock
 	time.sleep(0.025)
 
-	#historical_quotes = rh.stocks.get_stock_historicals(stock, "day", "year")
-	historical_quotes = rh.stocks.get_stock_historicals(stock, "hour", "month")
+	historical_quotes = rh.stocks.get_stock_historicals(stock, "day", "year")
+	#historical_quotes = rh.stocks.get_stock_historicals(stock, "hour", "month")
 	#historical_quotes = rh.stocks.get_stock_historicals(stock, "10minute", "week")
 	#print(historical_quotes[:5])
 	closePrices = []
@@ -293,7 +294,7 @@ def run_stocks(sc, stocks, stop_loss_list, num_orders):
 			#print(stp)
 		except Exception as e:
 			print(e)
-			print(stock + ": Stop loss did not work, no open option ")
+			print(stock + ": Stop loss did not work, no open position. ")
 		#if entered_trade: break
 	#stop loss
 
