@@ -36,7 +36,7 @@ stocks = [
 ]
 
 random.shuffle(stocks)
-stop_loss_list = [ ]
+stop_loss_list = [ 'SRNE', 'RELL', 'NMRK', 'CURV']
 
 #trade_counter = [0, 0]
 max_iv = 0.60
