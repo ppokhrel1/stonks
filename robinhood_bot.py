@@ -30,12 +30,16 @@ stocks = [
 	"AGX","ACLS","MGA","VRTX","PM","VICR","LBTYK","KO","CTXS","SNDR","CP","AAPL",
 	"GGB","INCY","ACR","TTE","AVGO","PG","NAVI","RSXJ","CTRE","ESI","FB",
 	
+	"PGR","DGX","PLUG","EBAY","ACLS","ESI","RETA","AOSL","INFI","CP","VRTX","VICR","AGX",
+	"ALLY","WMB","LBTYK","MGA","KO","CTXS","AAPL","NAVI","INCY","NVDA","TTE","GGB","CTRE",
+	"PG","NOV","DFS","FB","ATH","CWK"
 	#from tickeron engine december 12 weekly play
 	#'ERF', 'HFFG', 'YELL', 'RELL', 'SUZ', 'GGB',
 ]
 
 random.shuffle(stocks)
-stop_loss_list = [ 'SRNE', 'NMRK', 'CURV']
+
+#stop_loss_list = [ 'SRNE', 'NMRK', 'CURV']
 
 #trade_counter = [0, 0]
 max_iv = 0.60
@@ -45,6 +49,7 @@ num_orders = 3 #number of options trades at any moment (one is adready there, AU
 import robin_stocks.robinhood as rh
 import pyotp
 from datetime import datetime
+import datetime as dt
 import numpy as np
 import tulipy as ti
 import sched
@@ -66,6 +71,13 @@ with open('keys.txt', 'r') as f:
 	login = rh.login(lines[1],lines[2], mfa_code=totp)
 
 
+#stop loss list 
+#only activate if bought before today
+my_list = rh.account.get_open_stock_positions()
+dates = [ dt.date.fromisoformat(a['updated_at'].split('T')[0]) for a in my_list ]
+my_list = [ my_list[a] for a in range(len(dates)) if datetime.date.today() > dates[a] ]
+stop_loss_list = [rh.stocks.get_instrument_by_url(a['instrument'])['symbol'] for a in my_list ]
+#print(stocks)
 
 def order_spread(stock, max_iv = 0.60, vol_min = 100):
 	#ret_val = rh.orders.order_option_spread("debit", price, stock, 1, spread, timeInForce="gfd", )
@@ -186,6 +198,7 @@ def run(stock, num_orders, enteredTrade = False):
 		#if rsi[len(rsi)-1] <= 45 and \
 		#print(stock)
 		#print(vwap[-1] - sma[-1] )
+		## buy at best point of the day
 		if	vwap[-1] > sma[-1] and vwap[-1]>vwap[-2] and float(key['close_price']) <= currentSupport and not enteredTrade:
 			#print("Buying RSI is below 35!")
 			#option position
@@ -203,6 +216,7 @@ def run(stock, num_orders, enteredTrade = False):
 			# macd less than signal and difference less than 0.02
 			# or macd > signal and macd - signal < 0.02 and macd growing
 			# 
+			## buy at the best point of the day
 			if len(open_and_pending_options) <= num_orders * 2 and stock not in open_and_pending_options and \
 				rsi[-1] < 50 and \
 				( (macd[-1] > macd_signal[-1]  and abs(macd[-1] - macd_signal[-1]) <= 0.03 and macd[-1] > macd[-2] > macd[-3]  ) or \
