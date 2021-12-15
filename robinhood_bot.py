@@ -30,7 +30,7 @@ stocks = [
 	"AGX","ACLS","MGA","VRTX","PM","VICR","LBTYK","KO","CTXS","SNDR","CP","AAPL",
 	"GGB","INCY","ACR","TTE","AVGO","PG","NAVI","RSXJ","CTRE","ESI","FB",
 	
-	"PGR","DGX","PLUG","EBAY","ACLS","ESI","RETA","AOSL","INFI","CP","VRTX","VICR","AGX",
+	"PGR","DGX","PLUG","EBAY","ESI","RETA","AOSL","INFI","CP","VRTX","VICR","AGX",
 	"ALLY","WMB","LBTYK","MGA","KO","CTXS","AAPL","NAVI","INCY","NVDA","TTE","GGB","CTRE",
 	"PG","NOV","DFS","FB","ATH","CWK"
 	#from tickeron engine december 12 weekly play
@@ -115,7 +115,7 @@ def stop_win_loss(stock, loss_percent=0.3, win_percent=0.8 ):
 		val = sell_spread(stock)
 		return val
 
-def stock_stop_win_loss(stock, loss_percent=0.04, win_percent=0.06 ):
+def stock_stop_win_loss(stock, loss_percent=0.04, win_percent=0.08 ):
 	all_open_options = rh.account.get_open_stock_positions()
 
 	#open_and_pending_options = [ rh.stocks.get_instrument_by_url(b['instrument']) for b in all_open_options if b['symbol']==stock ]
