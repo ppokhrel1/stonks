@@ -40,7 +40,7 @@ stocks = [
 
 #trade_counter = [0, 0]
 max_iv = 0.60
-num_orders = 3 #number of options trades at any moment (one is adready there, AUR)
+num_orders = 5 #number of options trades at any moment (one is adready there, AUR)
 
 #from pyrh import Robinhood
 import robin_stocks.robinhood as rh
@@ -148,8 +148,8 @@ def run(stock, num_orders, enteredTrade = False):
 	time.sleep(0.025)
 
 	#historical_quotes = rh.stocks.get_stock_historicals(stock, "day", "year")
-	#historical_quotes = rh.stocks.get_stock_historicals(stock, "hour", "month")
-	historical_quotes = rh.stocks.get_stock_historicals(stock, "10minute", "week")
+	historical_quotes = rh.stocks.get_stock_historicals(stock, "hour", "month")
+	#historical_quotes = rh.stocks.get_stock_historicals(stock, "10minute", "week")
 	#print(historical_quotes[:5])
 	closePrices = []
 	volumes = []
