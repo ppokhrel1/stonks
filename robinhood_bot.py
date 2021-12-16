@@ -26,15 +26,15 @@ spread = [leg1,leg2]
 
 
 stocks = [
-	"SHOP","NYT","CSCO","SNY","DGX","EBAY","WMB","AOSL","ERIC","FTNT","KO","EMF",
-	"NVS","UNH","VRTX","INFI","ACLS","NVDA","NKTR","NSSC","AGEN","MBT","TNDM","FPXI",
-	"BL","COST","VICR","PTSI","PDBC","SWKS","HQY","COMT","LBTYK","COMM","NAVI","CMDY",
-	"CMC","NWL","XRAY","EW","CGNX","NLOK","PM","PG","CTRE",
+	"SHOP","NYT","CSCO","SNY","DGX","EBAY","WMB","AOSL","ERIC","FTNT","KO",
+	"EMF","NVS","UNH","VRTX","INFI","ACLS","NVDA","NKTR","NSSC","AGEN","MBT",
+	"TNDM","FPXI","BL","COST","VICR","PTSI","PDBC","SWKS","HQY","COMT","LBTYK",
+	"COMM","NAVI","CMDY","CMC","NWL","XRAY","EW","CGNX","NLOK"
 	#from tickeron engine december 12 weekly play
 	#'ERF', 'HFFG', 'YELL', 'RELL', 'SUZ', 'GGB',
 ]
 
-random.shuffle(stocks)
+#random.shuffle(stocks)
 
 #stop_loss_list = [ 'SRNE', 'NMRK', 'CURV']
 
