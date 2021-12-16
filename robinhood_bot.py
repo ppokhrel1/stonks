@@ -26,13 +26,10 @@ spread = [leg1,leg2]
 
 
 stocks = [
-	"ABT","JNJ","NOV","DGX","PGR","WMB","EBAY","PLUG","RETA","AOSL","INFI","ALLY",
-	"AGX","ACLS","MGA","VRTX","PM","VICR","LBTYK","KO","CTXS","SNDR","CP","AAPL",
-	"GGB","INCY","ACR","TTE","AVGO","PG","NAVI","RSXJ","CTRE","ESI","FB",
-	
-	"PGR","DGX","PLUG","EBAY","ESI","RETA","AOSL","INFI","CP","VRTX","VICR","AGX",
-	"ALLY","WMB","LBTYK","MGA","KO","CTXS","AAPL","NAVI","INCY","NVDA","TTE","GGB","CTRE",
-	"PG","NOV","DFS","FB","ATH","CWK"
+	"SHOP","NYT","CSCO","SNY","DGX","EBAY","WMB","AOSL","ERIC","FTNT","KO","EMF","NVS",
+	"UNH","VRTX","INFI","ACLS","NVDA","NKTR","NSSC","AGEN","MBT","TNDM","FPXI","BL","COST",
+	"VICR","PTSI","PDBC","SWKS","HQY","COMT","LBTYK","COMM","NAVI","CMDY","CMC","NWL","XRAY",
+	"EW","CGNX","NLOK","PM","PG","CTRE","BHC","PGR","RSXJ",
 	#from tickeron engine december 12 weekly play
 	#'ERF', 'HFFG', 'YELL', 'RELL', 'SUZ', 'GGB',
 ]
