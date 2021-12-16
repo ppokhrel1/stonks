@@ -29,7 +29,7 @@ stocks = [
 	"SHOP","NYT","CSCO","SNY","DGX","EBAY","WMB","AOSL","ERIC","FTNT","KO",
 	"EMF","NVS","UNH","VRTX","INFI","ACLS","NVDA","NKTR","NSSC","AGEN","MBT",
 	"TNDM","FPXI","BL","COST","VICR","PTSI","PDBC","SWKS","HQY","COMT","LBTYK",
-	"COMM","NAVI","CMDY","CMC","NWL","XRAY","EW","CGNX","NLOK"
+	"COMM","NAVI","CMC","NWL","XRAY","EW","CGNX","NLOK"
 	#from tickeron engine december 12 weekly play
 	#'ERF', 'HFFG', 'YELL', 'RELL', 'SUZ', 'GGB',
 ]
@@ -164,19 +164,41 @@ def run(stock, num_orders, enteredTrade = False):
 			if (currentIndex >= (rsiPeriod-1) and datetime.datetime.strptime(key['begins_at'], '%Y-%m-%dT%H:%M:%SZ').minute == 0):
 				currentSupport = 0
 				currentResistance = 0
-				#print("Resetting support and resistance")
 			if(float(key['close_price']) < currentSupport or currentSupport == 0):
 			   currentSupport = float(key['close_price'])
-			   #print("Current Support is : ")
-			   #print(currentSupport)
 			if(float(key['close_price']) > currentResistance):
 			   currentResistance = float(key['close_price'])
-			   #print("Current Resistance is : ")
-			   #print(currentResistance)
 			closePrices.append(float(key['close_price']))
 			volumes.append(float(key['volume']) )
 		currentIndex += 1
 	DATA = np.array(closePrices)
+
+	#longer trend
+	historical_quotes_long = rh.stocks.get_stock_historicals(stock, "hour", "month")
+	#historical_quotes = rh.stocks.get_stock_historicals(stock, "10minute", "week")
+	#print(historical_quotes[:5])
+	closePrices_long = []
+	volumes_long = []
+
+	#format close prices for RSI
+	currentIndex_long = 0
+	currentSupport_long  = 0
+	currentResistance_long = 0
+	rsiPeriod_long = 14
+	#print(historical_quotes)
+	for key in historical_quotes_long:
+		if (currentIndex_long >= len(historical_quotes_long) - (rsiPeriod_long + 1)):
+			if (currentIndex_long >= (rsiPeriod_long-1) and datetime.datetime.strptime(key['begins_at'], '%Y-%m-%dT%H:%M:%SZ').minute == 0):
+				currentSupport_long = 0
+				currentResistance_long = 0
+			if(float(key['close_price']) < currentSupport_long or currentSupport_long == 0):
+			   currentSupport_long = float(key['close_price'])
+			if(float(key['close_price']) > currentResistance_long):
+			   currentResistance_long = float(key['close_price'])
+			closePrices_long.append(float(key['close_price']))
+			volumes_long.append(float(key['volume']) )
+		currentIndex_long += 1
+	DATA_long = np.array(closePrices)
 	#data = rh.options.find_options_by_expiration_and_strike("BOX", "2021-04-16", '20.0', optionType='call', info=None) [0] 
 
 	#print(data)
@@ -190,13 +212,19 @@ def run(stock, num_orders, enteredTrade = False):
 		macd, macd_signal, macd_histogram = ti.macd(DATA, short_period=short_period,
 			long_period=long_period, 
 			signal_period=signal_period)
+
+		macd_long, macd_signal_long, macd_histogram_long = ti.macd(DATA_long, short_period=short_period,
+			long_period=long_period, 
+			signal_period=signal_period)
 		#instrument = rh.instruments("F")[0]
 		#If rsi is less than or equal to 30 buy
 		#if rsi[len(rsi)-1] <= 45 and \
 		#print(stock)
 		#print(vwap[-1] - sma[-1] )
 		## buy at best point of the day
-		if	vwap[-1] > sma[-1] and vwap[-1]>vwap[-2] and float(key['close_price']) <= currentSupport and not enteredTrade:
+		if	vwap[-1] > sma[-1] and vwap[-1]>vwap[-2] and float(key['close_price']) <= currentSupport and not enteredTrade and \
+			( (macd_long[-1] > macd_signal_long[-1]  and macd_long[-1] > macd_long[-2] > macd_long[-3]  ) or \
+			(macd_long[-1] < macd_signal_long[-1]   and macd_long[-1] > macd_long[-2]>macd_long[-3]) ):
 			#print("Buying RSI is below 35!")
 			#option position
 			#buy if number of open option orders is less than 2
@@ -218,6 +246,8 @@ def run(stock, num_orders, enteredTrade = False):
 				rsi[-1] < 50 and \
 				( (macd[-1] > macd_signal[-1]  and abs(macd[-1] - macd_signal[-1]) <= 0.03 and macd[-1] > macd[-2] > macd[-3]  ) or \
 				(macd[-1] < macd_signal[-1]   and abs(macd[-1] - macd_signal[-1]) <= 0.03 and macd[-1] > macd[-2]>macd[-3]) ):
+				
+
 				#( (macd[-1] < macd_signal[-1] and abs(macd[-1] - macd_signal[-1]) < abs(macd[-2] - macd_signal[-2]) ) or \
 				#(macd[-1] > macd_signal[-1] and abs(macd[-1]-macd_signal[-1]) > abs(macd[-1] - macd_signal[-2]) ) ):# or (macd[-1] > macd[-3] and  macd[-1] < macd_signal[-1])):
 				#place buy order
