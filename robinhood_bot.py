@@ -216,12 +216,17 @@ def run(stock, num_orders, enteredTrade = False):
 		macd_long, macd_signal_long, macd_histogram_long = ti.macd(DATA_long, short_period=short_period,
 			long_period=long_period, 
 			signal_period=signal_period)
+		rsi_long = ti.rsi(DATA_long, period=rsiPeriod )
+		ema_long = ti.ema(np.array(rsi_long), period=13) #hull moving average
+		#ema_rsi = ti.ema(np.array(sma), period=12)
+
 		#instrument = rh.instruments("F")[0]
 		#If rsi is less than or equal to 30 buy
 		#if rsi[len(rsi)-1] <= 45 and \
 		#print(stock)
 		#print(vwap[-1] - sma[-1] )
 		## buy at best point of the day
+		#if not enteredTrade and rsi_long[-1] > ema_long[-1] and 40 < ema_rsi[-1] < 60 and \
 		if	vwap[-1] > sma[-1] and vwap[-1]>vwap[-2] and float(key['close_price']) <= currentSupport and not enteredTrade and \
 			( (macd_long[-1] > macd_signal_long[-1]  and macd_long[-1] > macd_long[-2] > macd_long[-3]  ) or \
 			(macd_long[-1] < macd_signal_long[-1]   and macd_long[-1] > macd_long[-2]>macd_long[-3]) ):
@@ -294,7 +299,10 @@ def run(stock, num_orders, enteredTrade = False):
 			macd, macd_signal, macd_histogram = ti.macd(DATA, short_period=short_period,
 				long_period=long_period, 
 				signal_period=signal_period)
+			rsi_long = ti.rsi(DATA_long, period=rsiPeriod )
+			ema_long = ti.ema(np.array(rsi_long), period=13) #hull moving average
 			# < macd[-3]  < macd[-3]
+			#if rsi_long[-1] < ema_long[-1] and 
 			if ( (macd[-1] <= macd_signal[-1] and macd[-1] < macd[-2]  ) or \
 			(macd[-1] >= macd_signal[-1] and macd[-1] < macd[-2]  ) ) : # < macd[-3]
 			#vwap[-1] <= sma[-1] and float(key['close_price']) >= currentResistance and currentResistance > 0 and enteredTrade and \
