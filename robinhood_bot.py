@@ -26,10 +26,9 @@ spread = [leg1,leg2]
 
 
 stocks = [
-	"SHOP","NYT","CSCO","SNY","DGX","EBAY","WMB","AOSL","ERIC","FTNT","KO",
-	"EMF","NVS","UNH","VRTX","INFI","ACLS","NVDA","NKTR","NSSC","AGEN","MBT",
-	"TNDM","FPXI","BL","COST","VICR","PTSI","PDBC","SWKS","HQY","COMT","LBTYK",
-	"COMM","NAVI","CMC","NWL","XRAY","EW","CGNX","NLOK"
+	"WMB","HON","AZN","TT","IP","AEM","FITB","EBAY","BBL","DGX","MARA","EW","NKTR",
+	"INFY","EXPD","AGEN","BSX","HOLX","UNH","CSCO","COST","DHR","STLD","DOC","AOSL",
+	"AIG","AAPL","CHD","SNY","DXC","XRAY","ALB","RY","GS","AVGO",
 	#from tickeron engine december 12 weekly play
 	#'ERF', 'HFFG', 'YELL', 'RELL', 'SUZ', 'GGB',
 ]
@@ -71,11 +70,12 @@ with open('keys.txt', 'r') as f:
 #stop loss list 
 #only activate if bought before today
 my_list = rh.account.get_open_stock_positions()
+#print(my_list)
 dates = [ dt.date.fromisoformat(a['updated_at'].split('T')[0]) for a in my_list ]
 my_list = [ my_list[a] for a in range(len(dates)) if datetime.date.today() > dates[a] ]
 stop_loss_list = [rh.stocks.get_instrument_by_url(a['instrument'])['symbol'] for a in my_list ]
 #print(stocks)
-
+#print(stop_loss_list)
 def order_spread(stock, max_iv = 0.60, vol_min = 100):
 	#ret_val = rh.orders.order_option_spread("debit", price, stock, 1, spread, timeInForce="gfd", )
 	#r.order_buy_option_limit('open', 'debit', price = price, symbol = ticker, quantity = 1, expirationDate = exp_date, strike = strike , optionType=opt_type, timeInForce='gfd')
