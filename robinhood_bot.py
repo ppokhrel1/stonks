@@ -174,7 +174,7 @@ def run(stock, num_orders, enteredTrade = False):
 	DATA = np.array(closePrices)
 
 	#longer trend
-	historical_quotes_long = rh.stocks.get_stock_historicals(stock, "hour", "month")
+	historical_quotes_long = rh.stocks.get_stock_historicals(stock, "day", "year")
 	#historical_quotes = rh.stocks.get_stock_historicals(stock, "10minute", "week")
 	#print(historical_quotes[:5])
 	closePrices_long = []
