@@ -26,9 +26,9 @@ spread = [leg1,leg2]
 
 
 stocks = [
-	"WMB","HON","AZN","TT","IP","AEM","FITB","EBAY","BBL","DGX","MARA","EW","NKTR",
-	"INFY","EXPD","AGEN","BSX","HOLX","UNH","CSCO","COST","DHR","STLD","DOC","AOSL",
-	"AIG","AAPL","CHD","SNY","DXC","XRAY","ALB","RY","GS","AVGO",
+	"CSCO","RICK","INFY","MANH","CNI","PAYX","ACLS","GLQ","WMB","MIME",
+	"BLDR","FTNT","DVN","LBTYK","INCY","DISH","EBAY","ANET","AA","AMD",
+	"PDBC","FC","NVDA","RCL","COM","PRQR","PM","AOSL","FB","NCLH",
 	#from tickeron engine december 12 weekly play
 	#'ERF', 'HFFG', 'YELL', 'RELL', 'SUZ', 'GGB',
 ]
