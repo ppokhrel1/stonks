@@ -308,8 +308,8 @@ def run(stock, num_orders, enteredTrade = False):
 			ema_long = ti.ema(np.array(rsi_long), period=13) #hull moving average
 			# < macd[-3]  < macd[-3]
 			#if rsi_long[-1] < ema_long[-1] and 
-			if ( (macd[-1] <= macd_signal[-1] and macd[-1] < macd[-2]  ) or \
-			(macd[-1] >= macd_signal[-1] and macd[-1] < macd[-2]  ) ) : # < macd[-3]
+			if ( (macd[-1] <= macd_signal[-1] and macd[-1] <= macd[-2] <= macd[-3]  ) or \
+			(macd[-1] >= macd_signal[-1] and macd[-1] <= macd[-2]<= macd[-3]  ) ) : # < macd[-3]
 			#vwap[-1] <= sma[-1] and float(key['close_price']) >= currentResistance and currentResistance > 0 and enteredTrade and \
 			#(macd[-1] > macd_signal[-1] and macd[-1] < macd[-2] < macd[-3] ):# or (macd[-1] > macd[-3] and  macd[-1] < macd_signal[-1]) ):
 			#print(stock + ": Selling RSI is above 65!")
