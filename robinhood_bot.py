@@ -29,10 +29,15 @@ stocks = [
 	"WMB","LVS","PAYX","SHOP","AEM","SGMS","MANH","FTNT","AA","MIME",
 	"NVDA","VRTX","GLQ","DVN","HIMX","ADP","IRWD","JD","INCY","INFY","LBTYK",
 	"ICHR","PH","SQM","HL","BBL","AOSL","BLDR","UNH","FC","ACLS","GGB",
+	"EXTR","KLAC","AOSL","BBL","TKR","CGNX","MANH","PGR","VTIP","ACLS","PLAB","JD",
+	"UEC","HIMX","VRTX","FCX","NSSC","WETF","SKY","BOOT","KFY","EPD","FC","AMD","ARCB",
+	"UNH","CUTR","ICHR","EW","AYI","ING","PG","BCI","INCY","MNST","NVDA","DAVA","SGMA","FTNT",
+	"AMAT","DRNA","SRGA","BLDR","TTD","TER","BIOL",
 	#from tickeron engine december 12 weekly play
 	#'ERF', 'HFFG', 'YELL', 'RELL', 'SUZ', 'GGB',
 ]
 
+stocks = set(list(stocks))
 #random.shuffle(stocks)
 
 #stop_loss_list = [ 'SRNE', 'NMRK', 'CURV']
