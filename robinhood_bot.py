@@ -32,7 +32,7 @@ stocks = [
 	"EXTR","KLAC","AOSL","BBL","TKR","CGNX","MANH","PGR","ACLS","PLAB","JD",
 	"UEC","HIMX","VRTX","FCX","NSSC","WETF","SKY","BOOT","KFY","EPD","FC","AMD","ARCB",
 	"UNH","CUTR","ICHR","EW","AYI","ING","PG","BCI","INCY","MNST","NVDA","DAVA","SGMA","FTNT",
-	"AMAT","DRNA","SRGA","BLDR","TTD","TER","BIOL",
+	"AMAT","SRGA","BLDR","TTD","TER","BIOL",
 	#from tickeron engine december 12 weekly play
 	#'ERF', 'HFFG', 'YELL', 'RELL', 'SUZ', 'GGB',
 ]
