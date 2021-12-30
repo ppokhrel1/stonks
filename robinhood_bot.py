@@ -2,6 +2,8 @@
 import random
 import time
 
+excludes = ['AEM']
+
 to_close = ['PLTR', 'NPA']
 #symbol, strike, expiry, quantity
 to_open = [ ('BOX', '20.0', "2021-04-16", 1 ),
@@ -79,6 +81,7 @@ my_list = rh.account.get_open_stock_positions()
 dates = [ dt.date.fromisoformat(a['updated_at'].split('T')[0]) for a in my_list ]
 my_list = [ my_list[a] for a in range(len(dates)) if datetime.date.today() > dates[a] ]
 stop_loss_list = [rh.stocks.get_instrument_by_url(a['instrument'])['symbol'] for a in my_list ]
+stop_loss_list = [a for a in stop_loss_list if a not in excludes]
 #print(stocks)
 #print(stop_loss_list)
 def order_spread(stock, max_iv = 0.60, vol_min = 100):
