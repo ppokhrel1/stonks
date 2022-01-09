@@ -234,9 +234,9 @@ def run(stock, num_orders, enteredTrade = False):
 		# > macd_long[-3] 
 		## buy at best point of the day
 		#if not enteredTrade and rsi_long[-1] > ema_long[-1] and 40 < ema_rsi[-1] < 60 and \
-		if	vwap[-1] > sma[-1] and vwap[-1]>vwap[-2] and float(key['close_price']) <= currentSupport and not enteredTrade and \
-			( (macd_long[-1] > macd_signal_long[-1]  and macd_long[-1] > macd_long[-2]  ) or \
-			(macd_long[-1] < macd_signal_long[-1]   and macd_long[-1] > macd_long[-2]) ):
+		if	float(key['close_price']) <= currentSupport and not enteredTrade and \
+			( (macd_long[-1] > macd_signal_long[-1]  and macd_long[-1] > macd_long[-2] < macd_long[-2] ) or \
+			(macd_long[-1] < macd_signal_long[-1]   and macd_long[-1] > macd_long[-2]) < macd_long[-2] ):
 			#print("Buying RSI is below 35!")
 			#option position
 			#buy if number of open option orders is less than 2
@@ -256,8 +256,8 @@ def run(stock, num_orders, enteredTrade = False):
 			## buy at the best point of the day
 			if len(open_and_pending_options) <= num_orders * 2 and stock not in open_and_pending_options and \
 				rsi[-1] < 50 and \
-				( (macd[-1] > macd_signal[-1]  and abs(macd[-1] - macd_signal[-1]) <= 0.03 and macd[-1] > macd[-2] > macd[-3]  ) or \
-				(macd[-1] < macd_signal[-1]   and abs(macd[-1] - macd_signal[-1]) <= 0.03 and macd[-1] > macd[-2]>macd[-3]) ):
+				( (macd[-1] > macd_signal[-1]  and abs(macd[-1] - macd_signal[-1]) <= 0.02 and macd[-1] > macd[-2] > macd[-3]  ) or \
+				(macd[-1] < macd_signal[-1]   and abs(macd[-1] - macd_signal[-1]) <= 0.02 and macd[-1] > macd[-2]>macd[-3]) ):
 				
 
 				#( (macd[-1] < macd_signal[-1] and abs(macd[-1] - macd_signal[-1]) < abs(macd[-2] - macd_signal[-2]) ) or \
@@ -313,8 +313,11 @@ def run(stock, num_orders, enteredTrade = False):
 			ema_long = ti.ema(np.array(rsi_long), period=13) #hull moving average
 			# < macd[-3]  < macd[-3]
 			#if rsi_long[-1] < ema_long[-1] and 
-			if ( (macd_long[-1] <= macd_signal_long[-1] and macd_long[-1] <= macd_long[-2] <= macd_long[-3]  ) or \
-			(macd_long[-1] >= macd_signal_long[-1] and macd_long[-1] <= macd_long[-2]<= macd_long[-3]  ) ) : # < macd[-3]
+			#if ( (macd_long[-1] <= macd_signal_long[-1] and macd_long[-1] <= macd_long[-2] <= macd_long[-3]  ) or \
+			#(macd_long[-1] >= macd_signal_long[-1] and macd_long[-1] <= macd_long[-2]<= macd_long[-3]  ) ) : # < macd[-3]
+			if ( (macd[-1] <= macd_signal[-1] and macd[-1] <= macd[-2] <= macd[-3]  ) or \
+			(macd[-1] >= macd_signal[-1] and macd[-1] <= macd[-2]<= macd[-3]  ) ) : # < macd[-3]
+			
 			#vwap[-1] <= sma[-1] and float(key['close_price']) >= currentResistance and currentResistance > 0 and enteredTrade and \
 			#(macd[-1] > macd_signal[-1] and macd[-1] < macd[-2] < macd[-3] ):# or (macd[-1] > macd[-3] and  macd[-1] < macd_signal[-1]) ):
 			#print(stock + ": Selling RSI is above 65!")
