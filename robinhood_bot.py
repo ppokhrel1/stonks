@@ -27,7 +27,7 @@ spread = [leg1,leg2]
 
 
 
-stocks = [
+stocks = [ 'SPY', 'SNAP',
 	"YUMC","AVT","NTAP","RJF","GL","IMO","CVGI","UBS","BBL","PGR","SBSW","VLRS",
 	"KIM","MPC","CMC","STM","UPS","RHI","GEO","BXP","BKU","PXD","NVO","BABA","BK",
 	"SPLK","UHS","DVN","AA","GD","ACLS","GOGL","CHD","BGCP","SCHW","FC","NYT","WETF",
