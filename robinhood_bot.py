@@ -215,7 +215,10 @@ def run(stock, num_orders, enteredTrade = False):
 	#print(data['adjusted_mark_price'] )
 	if (len(closePrices) > (rsiPeriod)):
 		#Calculate RSI
-		adx_ = ti.dx(np.array(high_long), np.array(low_long), np.array(closePrices_long), 14)
+		#adx_ = 0
+		adx_ = ti.adx(np.array(high_long), np.array(low_long), np.array(closePrices_long), 7)
+		#print(dmi)
+		#if dmi[0] > dmi[1]: adx_ = dmi[0]
 		rsi = ti.rsi(DATA, period=rsiPeriod)
 		vwap = ti.vwma(np.array(DATA), np.array(volumes), period=10)
 		sma = ti.hma(np.array(DATA), period=13) #hull moving average
@@ -240,7 +243,7 @@ def run(stock, num_orders, enteredTrade = False):
 		# > macd_long[-3] 
 		## buy at best point of the day
 		#if not enteredTrade and rsi_long[-1] > ema_long[-1] and 40 < ema_rsi[-1] < 60 and \
-		if	adx_[-1] > 25 and vwap[-1] < DATA[-1] and float(key['close_price']) <= currentSupport and not enteredTrade and \
+		if	adx_[-1] > 25 and adx_[-1] >= adx_[-1] and vwap[-1] < DATA[-1] and float(key['close_price']) <= currentSupport and not enteredTrade and \
 			( (macd_long[-1] > macd_signal_long[-1]  and macd_long[-1] > macd_long[-2] < macd_long[-2] ) or \
 			(macd_long[-1] < macd_signal_long[-1]   and macd_long[-1] > macd_long[-2]) < macd_long[-2] ):
 			#print("Buying RSI is below 35!")
