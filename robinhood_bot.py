@@ -254,8 +254,9 @@ def run(stock, num_orders, enteredTrade = False):
 			# or macd > signal and macd - signal < 0.02 and macd growing
 			# 
 			## buy at the best point of the day
+			## short rsi at buy zone and long at not overbought
 			if len(open_and_pending_options) <= num_orders * 2 and stock not in open_and_pending_options and \
-				rsi[-1] < 45 and \
+				rsi[-1] < 45 and rsi_long[-1] < 60 and \
 				( (macd[-1] > macd_signal[-1]  and abs(macd[-1] - macd_signal[-1]) <= 0.02 and macd[-1] > macd[-2] > macd[-3]  ) or \
 				(macd[-1] < macd_signal[-1]   and abs(macd[-1] - macd_signal[-1]) <= 0.02 and macd[-1] > macd[-2]>macd[-3]) ):
 				
