@@ -28,13 +28,11 @@ spread = [leg1,leg2]
 
 
 stocks = [
-	"WMB","LVS","PAYX","SHOP","AEM","SGMS","MANH","FTNT","AA","MIME",
-	"NVDA","VRTX","GLQ","DVN","HIMX","ADP","IRWD","JD","INCY","INFY","LBTYK",
-	"ICHR","PH","SQM","HL","BBL","AOSL","BLDR","UNH","FC","ACLS","GGB",
-	"EXTR","KLAC","AOSL","BBL","TKR","CGNX","MANH","PGR","ACLS","PLAB","JD",
-	"UEC","HIMX","VRTX","FCX","NSSC","WETF","SKY","BOOT","KFY","EPD","FC","AMD","ARCB",
-	"UNH","CUTR","ICHR","EW","AYI","ING","PG","BCI","INCY","MNST","NVDA","DAVA","SGMA","FTNT",
-	"AMAT","SRGA","BLDR","TTD","TER","BIOL",
+	"YUMC","AVT","NTAP","RJF","GL","IMO","CVGI","UBS","BBL","PGR","SBSW","VLRS",
+	"KIM","MPC","CMC","STM","UPS","RHI","GEO","BXP","BKU","PXD","NVO","BABA","BK",
+	"SPLK","UHS","DVN","AA","GD","ACLS","GOGL","CHD","BGCP","SCHW","FC","NYT","WETF",
+	"TXT","NVDA","AZN","NCLH","SSRM","TDS","OPCH","QSR","IPG","CNHI","AYI","ETSY","CDMO",
+	"UE","FOLD","ANET","SCCO","ENTG","GSL","AVNT","TX","BBY","FTNT",
 	#from tickeron engine december 12 weekly play
 	#'ERF', 'HFFG', 'YELL', 'RELL', 'SUZ', 'GGB',
 ]
@@ -233,11 +231,12 @@ def run(stock, num_orders, enteredTrade = False):
 		#if rsi[len(rsi)-1] <= 45 and \
 		#print(stock)
 		#print(vwap[-1] - sma[-1] )
+		# > macd_long[-3] 
 		## buy at best point of the day
 		#if not enteredTrade and rsi_long[-1] > ema_long[-1] and 40 < ema_rsi[-1] < 60 and \
 		if	vwap[-1] > sma[-1] and vwap[-1]>vwap[-2] and float(key['close_price']) <= currentSupport and not enteredTrade and \
-			( (macd_long[-1] > macd_signal_long[-1]  and macd_long[-1] > macd_long[-2] > macd_long[-3]  ) or \
-			(macd_long[-1] < macd_signal_long[-1]   and macd_long[-1] > macd_long[-2]>macd_long[-3]) ):
+			( (macd_long[-1] > macd_signal_long[-1]  and macd_long[-1] > macd_long[-2]  ) or \
+			(macd_long[-1] < macd_signal_long[-1]   and macd_long[-1] > macd_long[-2]) ):
 			#print("Buying RSI is below 35!")
 			#option position
 			#buy if number of open option orders is less than 2
