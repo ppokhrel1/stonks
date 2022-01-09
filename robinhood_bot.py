@@ -187,6 +187,7 @@ def run(stock, num_orders, enteredTrade = False):
 	volumes_long = []
 
 	#format close prices for RSI
+	high_long, low_long = [], []
 	currentIndex_long = 0
 	currentSupport_long  = 0
 	currentResistance_long = 0
@@ -203,6 +204,9 @@ def run(stock, num_orders, enteredTrade = False):
 			   currentResistance_long = float(key['close_price'])
 			closePrices_long.append(float(key['close_price']))
 			volumes_long.append(float(key['volume']) )
+			high_long.append(float(key['high_price']) )
+			low_long.append(float(key['low_price']) )
+			
 		currentIndex_long += 1
 	DATA_long = np.array(closePrices)
 	#data = rh.options.find_options_by_expiration_and_strike("BOX", "2021-04-16", '20.0', optionType='call', info=None) [0] 
@@ -211,6 +215,7 @@ def run(stock, num_orders, enteredTrade = False):
 	#print(data['adjusted_mark_price'] )
 	if (len(closePrices) > (rsiPeriod)):
 		#Calculate RSI
+		adx_ = ti.dx(np.array(high_long), np.array(low_long), np.array(closePrices_long), 14)
 		rsi = ti.rsi(DATA, period=rsiPeriod)
 		vwap = ti.vwma(np.array(DATA), np.array(volumes), period=10)
 		sma = ti.hma(np.array(DATA), period=13) #hull moving average
@@ -226,6 +231,7 @@ def run(stock, num_orders, enteredTrade = False):
 		ema_long = ti.ema(np.array(rsi_long), period=13) #hull moving average
 		#ema_rsi = ti.ema(np.array(sma), period=12)
 
+		#print(adx_)
 		#instrument = rh.instruments("F")[0]
 		#If rsi is less than or equal to 30 buy
 		#if rsi[len(rsi)-1] <= 45 and \
@@ -234,7 +240,7 @@ def run(stock, num_orders, enteredTrade = False):
 		# > macd_long[-3] 
 		## buy at best point of the day
 		#if not enteredTrade and rsi_long[-1] > ema_long[-1] and 40 < ema_rsi[-1] < 60 and \
-		if	float(key['close_price']) <= currentSupport and not enteredTrade and \
+		if	adx_[-1] > 25 and vwap[-1] < DATA[-1] and float(key['close_price']) <= currentSupport and not enteredTrade and \
 			( (macd_long[-1] > macd_signal_long[-1]  and macd_long[-1] > macd_long[-2] < macd_long[-2] ) or \
 			(macd_long[-1] < macd_signal_long[-1]   and macd_long[-1] > macd_long[-2]) < macd_long[-2] ):
 			#print("Buying RSI is below 35!")
@@ -348,8 +354,11 @@ def run_stocks(sc, stocks, stop_loss_list, num_orders):
 	rh.orders.cancel_all_stock_orders() #cancel stock orders
 	for stock in stocks:
 		#if rh.options.get_open_option_positions() <= num_orders * 2: #if num_orders is not full
-		entered_trade = run(stock, num_orders)
-		
+		try:
+			entered_trade = run(stock, num_orders)
+		except Exception as e:
+			print(e)
+			print("stock probably does not exist")
 	for stock in stop_loss_list:
 		try: #stop loss function
 			#option one
