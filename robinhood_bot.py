@@ -255,7 +255,7 @@ def run(stock, num_orders, enteredTrade = False):
 			# 
 			## buy at the best point of the day
 			if len(open_and_pending_options) <= num_orders * 2 and stock not in open_and_pending_options and \
-				rsi[-1] < 50 and \
+				rsi[-1] < 45 and \
 				( (macd[-1] > macd_signal[-1]  and abs(macd[-1] - macd_signal[-1]) <= 0.02 and macd[-1] > macd[-2] > macd[-3]  ) or \
 				(macd[-1] < macd_signal[-1]   and abs(macd[-1] - macd_signal[-1]) <= 0.02 and macd[-1] > macd[-2]>macd[-3]) ):
 				
@@ -313,10 +313,11 @@ def run(stock, num_orders, enteredTrade = False):
 			ema_long = ti.ema(np.array(rsi_long), period=13) #hull moving average
 			# < macd[-3]  < macd[-3]
 			#if rsi_long[-1] < ema_long[-1] and 
-			#if ( (macd_long[-1] <= macd_signal_long[-1] and macd_long[-1] <= macd_long[-2] <= macd_long[-3]  ) or \
-			#(macd_long[-1] >= macd_signal_long[-1] and macd_long[-1] <= macd_long[-2]<= macd_long[-3]  ) ) : # < macd[-3]
-			if ( (macd[-1] <= macd_signal[-1] and macd[-1] <= macd[-2] <= macd[-3]  ) or \
-			(macd[-1] >= macd_signal[-1] and macd[-1] <= macd[-2]<= macd[-3]  ) ) : # < macd[-3]
+			if rsi[-1] > 70 or rsi_long[-1] > 70 or  ( (macd_long[-1] <= macd_signal_long[-1] and macd_long[-1] <= macd_long[-2] ) or \
+			(macd_long[-1] >= macd_signal_long[-1] and macd_long[-1] <= macd_long[-2]  ) ) : # < macd[-3]
+			
+			#if ( (macd[-1] <= macd_signal[-1] and macd[-1] <= macd[-2] <= macd[-3]  ) or \
+			#(macd[-1] >= macd_signal[-1] and macd[-1] <= macd[-2]<= macd[-3]  ) ) : # < macd[-3]
 			
 			#vwap[-1] <= sma[-1] and float(key['close_price']) >= currentResistance and currentResistance > 0 and enteredTrade and \
 			#(macd[-1] > macd_signal[-1] and macd[-1] < macd[-2] < macd[-3] ):# or (macd[-1] > macd[-3] and  macd[-1] < macd_signal[-1]) ):
