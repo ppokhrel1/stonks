@@ -28,11 +28,13 @@ spread = [leg1,leg2]
 
 
 stocks = [ 'SPY', 'SNAP',
-	"YUMC","AVT","NTAP","RJF","GL","IMO","CVGI","UBS","BBL","PGR","SBSW","VLRS",
-	"KIM","MPC","CMC","STM","UPS","RHI","GEO","BXP","BKU","PXD","NVO","BABA","BK",
-	"SPLK","UHS","DVN","AA","GD","ACLS","GOGL","CHD","BGCP","SCHW","FC","NYT","WETF",
-	"TXT","NVDA","AZN","NCLH","SSRM","TDS","OPCH","QSR","IPG","CNHI","AYI","ETSY","CDMO",
-	"UE","FOLD","ANET","SCCO","ENTG","GSL","AVNT","TX","BBY","FTNT",
+	"GD","CUZ","NTAP","BKU","MPC","CMA","EOG","BKR","GL","RJF","UPS","HUN","RHI",
+	"MTB","CVGI","UBS","KEY","REI","WELL","BK","TXT","AZN","KIM","MA","GPC","DVN","ALV",
+	"GSL","MT","CMC","TECK","CNHI","PHG","ALGN","DB","DVAX","PXD","DOV","STM","ISRG","DRI",
+	"TKR","AGNC","SBNY","TGA","FITB","AVT","NVDA","TTD","NVO","FNB","PGR","G","WBT","WETF",
+	"ST","SRC","FC","FIVN","SCHW","HALO","HPE","HWM","MBT","REG","AEG","ANET","NJAN","SMPL",
+	"GOLD","DKS","FTNT","PRU","VOYA","ETSY","JBHT","FMBI","KSS","PH","SFM","CLB","DISH","BUD",
+	"ENIC","STRO","ELAN","INCY","CPG","BBD","CX"
 	#from tickeron engine december 12 weekly play
 	#'ERF', 'HFFG', 'YELL', 'RELL', 'SUZ', 'GGB',
 ]
