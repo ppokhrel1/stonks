@@ -27,14 +27,13 @@ spread = [leg1,leg2]
 
 
 
-stocks = [ 'SPY', 'SNAP',
-	"GD","CUZ","NTAP","BKU","MPC","CMA","EOG","BKR","GL","RJF","UPS","HUN","RHI",
-	"MTB","CVGI","UBS","KEY","REI","WELL","BK","TXT","AZN","KIM","MA","GPC","DVN","ALV",
-	"GSL","MT","CMC","TECK","CNHI","PHG","ALGN","DB","DVAX","PXD","DOV","STM","ISRG","DRI",
-	"TKR","AGNC","SBNY","TGA","FITB","AVT","NVDA","TTD","NVO","FNB","PGR","G","WBT","WETF",
-	"ST","SRC","FC","FIVN","SCHW","HALO","HPE","HWM","MBT","REG","AEG","ANET","NJAN","SMPL",
-	"GOLD","DKS","FTNT","PRU","VOYA","ETSY","JBHT","FMBI","KSS","PH","SFM","CLB","DISH","BUD",
-	"ENIC","STRO","ELAN","INCY","CPG","BBD","CX"
+stocks = [ "NTAP","PXD","BPOP","RTX","CX","TKR","CNQ","EQNR","AXP","STT","FHN",
+"HUN","LYG","COP","EMN","CFG","MTB","GSL","RHI","LOOP","KNX","BCS","UBS","CMA",
+"ACLS","DD","NTRS","PH","BKU","WFC","WETF","SRC","KIM","EOG","BXP","FNB","FMX","JD",
+"MOS","MIME","HFC","TECK","VNET","STAG","MS","PTSI","HAL","TPR","GLPI","BK","ZION","FC",
+"GMED","MYC","ATCO","FITB","SAP","HMHC","PBR","LPLA","TTD","NVDA","TEL","HYLD","ISBC","ALSN",
+"CHKP","WGO","TGH","DENN","ISRG","ANET","MGY","DFS","FMBI","MPC","AEG","CVE","RGEN","HALO","APA",
+"ICHR","ESNT","TNL","BPMC","CHD","INCY","SMG","PNC","KEY","BAC","EXAS","FHB",
 	#from tickeron engine december 12 weekly play
 	#'ERF', 'HFFG', 'YELL', 'RELL', 'SUZ', 'GGB',
 ]
@@ -234,8 +233,19 @@ def run(stock, num_orders, enteredTrade = False):
 			signal_period=signal_period)
 		rsi_long = ti.rsi(DATA_long, period=rsiPeriod )
 		ema_long = ti.ema(np.array(rsi_long), period=13) #hull moving average
+		vwap_long = ti.vwma(np.array(DATA_long), np.array(volumes_long), period=10)
 		#ema_rsi = ti.ema(np.array(sma), period=12)
 
+		signal1 = adx_[-1] > 25 and adx_[-1] >= adx_[-1]
+		signal2 = vwap_long[-1] <= DATA[-1] and float(key['close_price']) <= currentSupport_long
+		signal3 = (macd_long[-1] > macd_signal_long[-1]  and macd_long[-1] >= macd_long[-2] >= macd_long[-3] ) or \
+			(macd_long[-1] < macd_signal_long[-1]   and macd_long[-1] >= macd_long[-2]) >= macd_long[-3]
+		signal4 = rsi[-1] < 45 and rsi_long[-1] < 60
+		signal5 = (macd[-1] > macd_signal[-1]   and macd[-1] >= macd[-2]  ) or \
+			(macd[-1] < macd_signal[-1]    and macd[-1] >= macd[-2] )
+
+		signal6 = abs(macd[-1] - macd_signal[-1]) <= 0.03 or abs(macd_long[-1] - macd_signal[-1]) <= 0.03
+		signals = [signal1, signal2, signal3, signal4, signal5, signal6 ]
 		#print(adx_)
 		#instrument = rh.instruments("F")[0]
 		#If rsi is less than or equal to 30 buy
@@ -245,9 +255,7 @@ def run(stock, num_orders, enteredTrade = False):
 		# > macd_long[-3] 
 		## buy at best point of the day
 		#if not enteredTrade and rsi_long[-1] > ema_long[-1] and 40 < ema_rsi[-1] < 60 and \
-		if	adx_[-1] > 25 and adx_[-1] >= adx_[-1] and vwap[-1] <= DATA[-1] and float(key['close_price']) <= currentSupport and not enteredTrade and \
-			( (macd_long[-1] > macd_signal_long[-1]  and macd_long[-1] > macd_long[-2] < macd_long[-2] ) or \
-			(macd_long[-1] < macd_signal_long[-1]   and macd_long[-1] > macd_long[-2]) < macd_long[-2] ):
+		if	len([a for a in signals if a == True] ) > 5:
 			#print("Buying RSI is below 35!")
 			#option position
 			#buy if number of open option orders is less than 2
@@ -266,13 +274,10 @@ def run(stock, num_orders, enteredTrade = False):
 			# 
 			## buy at the best point of the day
 			## short rsi at buy zone and long at not overbought
-			if len(open_and_pending_options) <= num_orders * 2 and stock not in open_and_pending_options and \
-				rsi[-1] < 45 and rsi_long[-1] < 60 and \
-				( (macd[-1] > macd_signal[-1]   and macd[-1] >= macd[-2]  ) or \
-				(macd[-1] < macd_signal[-1]    and macd[-1] >= macd[-2] ) ):
+			if len(open_and_pending_options) <= num_orders * 2 and stock not in open_and_pending_options:
 				#and abs(macd[-1] - macd_signal[-1]) <= 0.03				
 				#and abs(macd[-1] - macd_signal[-1]) <= 0.03
-				
+
 				#( (macd[-1] < macd_signal[-1] and abs(macd[-1] - macd_signal[-1]) < abs(macd[-2] - macd_signal[-2]) ) or \
 				#(macd[-1] > macd_signal[-1] and abs(macd[-1]-macd_signal[-1]) > abs(macd[-1] - macd_signal[-2]) ) ):# or (macd[-1] > macd[-3] and  macd[-1] < macd_signal[-1])):
 				#place buy order
