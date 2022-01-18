@@ -242,7 +242,7 @@ def run(stock, num_orders, enteredTrade = False):
 			(macd_long[-1] < macd_signal_long[-1]   and macd_long[-1] >= macd_long[-2]) >= macd_long[-3]
 		signal4 = rsi[-1] < 45 and rsi_long[-1] < 60
 		signal5 = (macd[-1] > macd_signal[-1]   and macd[-1] >= macd[-2]  ) or \
-			(macd[-1] < macd_signal[-1]    and macd[-1] >= macd[-2] )
+			(macd[-1] < macd_signal[-1]  and macd[-1] >= macd[-2] )
 
 		signal6 = abs(macd[-1] - macd_signal[-1]) <= 0.03 or abs(macd_long[-1] - macd_signal[-1]) <= 0.03
 		signals = [signal1, signal2, signal3, signal4, signal5, signal6 ]
@@ -255,7 +255,7 @@ def run(stock, num_orders, enteredTrade = False):
 		# > macd_long[-3] 
 		## buy at best point of the day
 		#if not enteredTrade and rsi_long[-1] > ema_long[-1] and 40 < ema_rsi[-1] < 60 and \
-		if	len([a for a in signals if a == True] ) > 5:
+		if	len([a for a in signals if a == True] ) >= 5:
 			#print("Buying RSI is below 35!")
 			#option position
 			#buy if number of open option orders is less than 2
