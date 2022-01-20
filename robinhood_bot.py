@@ -45,7 +45,7 @@ stocks = set(list(stocks))
 
 #trade_counter = [0, 0]
 max_iv = 0.60
-num_orders = 5 #number of options trades at any moment (one is adready there, AUR)
+num_orders = 4 #number of options trades at any moment (one is adready there, AUR)
 
 #from pyrh import Robinhood
 import robin_stocks.robinhood as rh
@@ -238,10 +238,10 @@ def run(stock, num_orders, enteredTrade = False):
 
 		signal1 = adx_[-1] > 25 and adx_[-1] >= adx_[-1]
 		signal2 = vwap_long[-1] <= DATA[-1] and float(key['close_price']) <= currentSupport_long
-		signal3 = (macd_long[-1] > macd_signal_long[-1]  and macd_long[-1] > macd_long[-2] > macd_long[-3] ) or \
+		signal3 = (macd_long[-1] > macd_signal_long[-1]  and macd_long[-1] > macd_long[-2] > macd_long[-3] ) and \
 			(macd_long[-1] < macd_signal_long[-1]   and macd_long[-1] > macd_long[-2] > macd_long[-3] )
 		signal4 = rsi[-1] < 45 and rsi_long[-1] < 60
-		signal5 = (macd[-1] > macd_signal[-1]   and macd[-1] >= macd[-2]  ) or \
+		signal5 = (macd[-1] > macd_signal[-1]   and macd[-1] >= macd[-2]  ) and \
 			(macd[-1] < macd_signal[-1]  and macd[-1] >= macd[-2] )
 
 		signal6 = abs(macd[-1] - macd_signal[-1]) <= 0.03 or abs(macd_long[-1] - macd_signal[-1]) <= 0.03
@@ -255,7 +255,7 @@ def run(stock, num_orders, enteredTrade = False):
 		# > macd_long[-3] 
 		## buy at best point of the day
 		#if not enteredTrade and rsi_long[-1] > ema_long[-1] and 40 < ema_rsi[-1] < 60 and \
-		if	len([a for a in signals if a == True] ) >= 6:
+		if	len([a for a in signals if a == True] ) >= 5:
 			#print("Buying RSI is below 35!")
 			#option position
 			#buy if number of open option orders is less than 2
