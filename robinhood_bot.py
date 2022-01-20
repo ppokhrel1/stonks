@@ -238,8 +238,8 @@ def run(stock, num_orders, enteredTrade = False):
 
 		signal1 = adx_[-1] > 25 and adx_[-1] >= adx_[-1]
 		signal2 = vwap_long[-1] <= DATA[-1] and float(key['close_price']) <= currentSupport_long
-		signal3 = (macd_long[-1] > macd_signal_long[-1]  and macd_long[-1] >= macd_long[-2] >= macd_long[-3] ) or \
-			(macd_long[-1] < macd_signal_long[-1]   and macd_long[-1] >= macd_long[-2]) >= macd_long[-3]
+		signal3 = (macd_long[-1] > macd_signal_long[-1]  and macd_long[-1] > macd_long[-2] > macd_long[-3] ) or \
+			(macd_long[-1] < macd_signal_long[-1]   and macd_long[-1] > macd_long[-2]) > macd_long[-3]
 		signal4 = rsi[-1] < 45 and rsi_long[-1] < 60
 		signal5 = (macd[-1] > macd_signal[-1]   and macd[-1] >= macd[-2]  ) or \
 			(macd[-1] < macd_signal[-1]  and macd[-1] >= macd[-2] )
