@@ -27,13 +27,13 @@ spread = [leg1,leg2]
 
 
 
-stocks = [ "NTAP","PXD","BPOP","RTX","CX","TKR","CNQ","EQNR","AXP","STT","FHN",
-"HUN","LYG","COP","EMN","CFG","MTB","GSL","RHI","LOOP","KNX","BCS","UBS","CMA",
-"ACLS","DD","NTRS","PH","BKU","WFC","WETF","SRC","KIM","EOG","BXP","FNB","FMX","JD",
-"MOS","MIME","HFC","TECK","VNET","STAG","MS","PTSI","HAL","TPR","GLPI","BK","ZION","FC",
-"GMED","MYC","ATCO","FITB","SAP","HMHC","PBR","LPLA","TTD","NVDA","TEL","HYLD","ISBC","ALSN",
-"CHKP","WGO","TGH","DENN","ISRG","ANET","MGY","DFS","FMBI","MPC","AEG","CVE","RGEN","HALO","APA",
-"ICHR","ESNT","TNL","BPMC","CHD","INCY","SMG","PNC","KEY","BAC","EXAS","FHB",
+stocks = [ "SLB","EOG","MPC","WFC","AEG","FNB","TKR","CIG","UBS","CNQ","COOP","FTI",
+"BBVA","TCOM","SBSW","REI","MS","GSL","RTX","SCS","BBL","WRK","DE","HES","TTE","MGM",
+"ADM","ING","CMA","TOL","QFIN","PXD","MTB","EWBC","NTRS","SYY","BHP","MFC","LYG","HBAN",
+"FMBI","VRTX","TFC","BK","VTR","VNET","LYB","AL","PTSI","DCP","USB","AGO","BWA","OC","NVDA",
+"SAP","OI","STT","BPOP","CMI","DKS","RF","CVGI","OLED","AXL","KEY","STAG","BMO","EMN","TS",
+"DFS","TCBI","CCK","STM","BKU","EGO","GMED","MUI","ABR","SRC","SPG","HCI","OLN","BBI","CDE",
+"OSK","TRGP","SWCH","TPR","CHKP","TTD",
 	#from tickeron engine december 12 weekly play
 	#'ERF', 'HFFG', 'YELL', 'RELL', 'SUZ', 'GGB',
 ]
@@ -224,6 +224,9 @@ def run(stock, num_orders, enteredTrade = False):
 		vwap = ti.vwma(np.array(DATA), np.array(volumes), period=10)
 		sma = ti.hma(np.array(DATA), period=13) #hull moving average
 		short_period, long_period, signal_period = 9, 12, 24
+
+		sma_long = ti.hma(np.array(DATA_long), period=13) #hull moving average
+		short_period, long_period, signal_period = 9, 12, 24
 		macd, macd_signal, macd_histogram = ti.macd(DATA, short_period=short_period,
 			long_period=long_period, 
 			signal_period=signal_period)
@@ -238,14 +241,23 @@ def run(stock, num_orders, enteredTrade = False):
 
 		signal1 = adx_[-1] > 25 and adx_[-1] >= adx_[-1]
 		signal2 = vwap_long[-1] <= DATA[-1] and float(key['close_price']) <= currentSupport_long
-		signal3 = (macd_long[-1] > macd_signal_long[-1]  and macd_long[-1] > macd_long[-2] > macd_long[-3] ) and \
-			(macd_long[-1] < macd_signal_long[-1]   and macd_long[-1] > macd_long[-2] > macd_long[-3] )
-		signal4 = rsi[-1] < 45 and rsi_long[-1] < 60
-		signal5 = (macd[-1] > macd_signal[-1]   and macd[-1] >= macd[-2]  ) and \
-			(macd[-1] < macd_signal[-1]  and macd[-1] >= macd[-2] )
+		signal3 = vwap[-1] <= DATA[-1] and float(key['close_price']) <= currentSupport
 
-		signal6 = abs(macd[-1] - macd_signal[-1]) <= 0.03 or abs(macd_long[-1] - macd_signal[-1]) <= 0.03
-		signals = [signal1, signal2, signal3, signal4, signal5, signal6 ]
+		signal4 = ( (macd_long[-1] > macd_signal_long[-1]  and macd_long[-1] > macd_long[-2] > macd_long[-3] ) or \
+			(macd_long[-1] < macd_signal_long[-1]   and macd_long[-1] > macd_long[-2] > macd_long[-3] ) ) and \
+			abs(macd_long[-1] - macd_signal_long[-1]) <= 0.03
+		
+		signal5 = rsi[-1] < 45 and rsi_long[-1] < 60
+		
+		signal6 = ( (macd[-1] > macd_signal[-1]   and macd[-1] >= macd[-2]  ) or \
+			(macd[-1] < macd_signal[-1]  and macd[-1] >= macd[-2] ) ) and \
+			abs(macd[-1] - macd_signal[-1]) <= 0.03
+		
+		#signal3 = signal3 and signal5
+
+		signal7 = sma[-1] < vwap[-1] or sma_long[-1] < vwap_long[-1]
+		
+		signals = [signal1, signal2, signal3, signal4, signal5, signal6, signal7]
 		#print(adx_)
 		#instrument = rh.instruments("F")[0]
 		#If rsi is less than or equal to 30 buy
@@ -255,7 +267,7 @@ def run(stock, num_orders, enteredTrade = False):
 		# > macd_long[-3] 
 		## buy at best point of the day
 		#if not enteredTrade and rsi_long[-1] > ema_long[-1] and 40 < ema_rsi[-1] < 60 and \
-		if	len([a for a in signals if a == True] ) >= 5:
+		if	len([a for a in signals if a == True] ) >= 6:
 			#print("Buying RSI is below 35!")
 			#option position
 			#buy if number of open option orders is less than 2
@@ -330,8 +342,8 @@ def run(stock, num_orders, enteredTrade = False):
 			rsi_long = ti.rsi(DATA_long, period=rsiPeriod )
 			ema_long = ti.ema(np.array(rsi_long), period=13) #hull moving average
 			# < macd[-3]  < macd[-3]
-			#if rsi_long[-1] < ema_long[-1] and 
-			if rsi[-1] > 70 or rsi_long[-1] > 70 or  ( (macd_long[-1] <= macd_signal_long[-1] and macd_long[-1] <= macd_long[-2] ) or \
+			#if rsi_long[-1] < ema_long[-1] and rsi[-1] > 70 or 
+			if rsi_long[-1] > 70 or  ( (macd_long[-1] <= macd_signal_long[-1] and macd_long[-1] <= macd_long[-2] ) or \
 			(macd_long[-1] >= macd_signal_long[-1] and macd_long[-1] <= macd_long[-2]  ) ) : # < macd[-3]
 			
 			#if ( (macd[-1] <= macd_signal[-1] and macd[-1] <= macd[-2] <= macd[-3]  ) or \
